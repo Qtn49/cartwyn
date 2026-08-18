@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import FadeIn from "@/components/FadeIn";
 import { placesDisponibles } from "@/lib/pricing";
-import { sectionTokens, type SectionVariant } from "@/components/section-variant";
+import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 const faqs = [
   {
@@ -44,27 +44,27 @@ const faqs = [
 ];
 
 type FAQProps = {
-  variant?: SectionVariant;
+  tone?: SectionTone;
 };
 
-export default function FAQ({ variant = "light" }: FAQProps) {
+export default function FAQ({ tone = "creme" }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const shouldReduceMotion = useReducedMotion();
-  const t = sectionTokens[variant];
+  const t = sectionTokens[tone];
 
   return (
     <section id="faq" className={`${t.bg} ${t.text}`}>
-      <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto max-w-3xl px-5 py-24 sm:px-8 lg:py-36">
         <FadeIn className="text-center">
-          <p className="text-sm font-medium uppercase tracking-wide text-terracotta">
+          <p className="label text-sm font-medium text-bronze">
             FAQ
           </p>
-          <h2 className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">
+          <h2 className="mt-4 font-display text-3xl font-semibold leading-tight sm:text-4xl">
             Questions fréquentes
           </h2>
         </FadeIn>
 
-        <FadeIn delay={0.1} className="mt-12 divide-y divide-brun/10 rounded-2xl border border-brun/10 bg-creme-soft">
+        <FadeIn delay={0.1} className={`mt-14 divide-y rounded-[3px] border ${t.border} ${t.divide}`}>
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
@@ -76,7 +76,7 @@ export default function FAQ({ variant = "light" }: FAQProps) {
                 >
                   <span className="font-medium">{faq.question}</span>
                   <span
-                    className={`shrink-0 text-xl text-terracotta transition-transform ${
+                    className={`shrink-0 text-xl text-bronze transition-transform ${
                       isOpen ? "rotate-45" : ""
                     }`}
                     aria-hidden="true"
@@ -93,7 +93,7 @@ export default function FAQ({ variant = "light" }: FAQProps) {
                       transition={{ duration: 0.3, ease: "easeOut" }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 text-sm leading-relaxed text-brun-soft">
+                      <p className={`px-6 pb-5 text-sm leading-relaxed ${t.textSoft}`}>
                         {faq.answer}
                       </p>
                     </motion.div>

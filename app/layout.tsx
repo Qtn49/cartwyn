@@ -50,7 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="fr"
       className={`${fraunces.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-creme text-brun font-body">
+      <body className="min-h-full flex flex-col bg-ink text-creme font-body">
         {children}
         <CookieConsent />
         <ChatBubble />

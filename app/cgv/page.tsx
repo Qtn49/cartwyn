@@ -16,13 +16,13 @@ export default function CGV() {
         <h1 className="font-display text-3xl font-semibold sm:text-4xl">
           Conditions générales de vente
         </h1>
-        <p className="mt-4 text-sm text-brun-soft">
+        <p className="mt-4 text-sm text-creme/65">
           Dernière mise à jour : [date à compléter]
         </p>
 
-        <div className="mt-10 space-y-8 text-brun-soft leading-relaxed">
+        <div className="mt-10 space-y-8 text-creme/65 leading-relaxed">
           <section>
-            <h2 className="font-display text-xl font-semibold text-brun">
+            <h2 className="font-display text-xl font-semibold text-creme">
               Article 1 — Objet
             </h2>
             <p className="mt-2">
@@ -36,7 +36,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-brun">
+            <h2 className="font-display text-xl font-semibold text-creme">
               Article 2 — Prix
             </h2>
             <p className="mt-2">
@@ -50,7 +50,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-brun">
+            <h2 className="font-display text-xl font-semibold text-creme">
               Article 3 — Modalités de paiement
             </h2>
             {/* À compléter : moyen de paiement, périodicité de facturation,
@@ -62,7 +62,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-brun">
+            <h2 className="font-display text-xl font-semibold text-creme">
               Article 4 — Garantie
             </h2>
             <p className="mt-2">
@@ -75,7 +75,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-brun">
+            <h2 className="font-display text-xl font-semibold text-creme">
               Article 5 — Résiliation
             </h2>
             {/* À compléter : préavis, modalités de résiliation. */}
@@ -86,7 +86,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-brun">
+            <h2 className="font-display text-xl font-semibold text-creme">
               Article 6 — Responsabilité
             </h2>
             <p className="mt-2">
@@ -99,7 +99,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-brun">
+            <h2 className="font-display text-xl font-semibold text-creme">
               Article 7 — Droit applicable
             </h2>
             <p className="mt-2">

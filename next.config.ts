@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Export statique pour hébergement mutualisé (Hostinger) sans Node.js —
-  // le build produit le dossier out/ à uploader tel quel.
-  output: "export",
+  // Déploiement sur serveur Docker dédié — le build produit .next/standalone,
+  // copié tel quel dans l'image finale (voir Dockerfile).
+  output: "standalone",
 };
 
 export default nextConfig;

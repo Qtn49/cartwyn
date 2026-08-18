@@ -13,21 +13,26 @@ Le contenu détaillé (copy, structure des sections, arc narratif du scroll) est
 - Next.js (App Router) + TypeScript
 - Tailwind CSS
 - Framer Motion pour les animations de scroll
-- Déploiement cible : Vercel
+- Déploiement cible : serveur Docker dédié (voir `Dockerfile` / `docker-compose.yml`), `output: "standalone"` dans `next.config.ts`. Un reverse proxy (Caddy/Nginx/Traefik) gère le HTTPS sur `cartwyn.fr` directement sur le serveur, hors dépôt.
 
 ## Commandes
 
 ```
 npm run dev      # serveur de développement
-npm run build    # build de production
+npm run build    # build de production (.next/standalone)
 npm run lint     # vérification du code
+docker compose up -d --build   # build + lancement du conteneur en local/serveur
 ```
 
 ## Système de design — à respecter partout
 
-- **Palette** : fond crème `#F3ECE1`, texte brun `#2B2117`, accent unique terracotta `#B85C38`. Pas de bleu, pas de violet, pas de dégradé.
-- **Typographie** : `Fraunces` pour tous les titres, `DM Sans` pour le corps de texte. Chargées via `next/font`.
-- **Illustrations** : style dessiné à la main / éditorial (SVG), jamais d'iconographie tech générique (pas de robot, pas de puce, pas de néon).
+Direction **luxe / sobre**, pas éditorial-chaleureux : l'encre profonde domine, le crème est une respiration rare, l'accent bronze reste discret.
+
+- **Palette** : fond dominant encre profonde `#12100D` (quasi-noir chaud), nuance secondaire `#1B1712` pour distinguer une section sans rompre la palette sombre (ex. "Comment ça marche", "Tarifs"), texte/contenu crème `#F3ECE1`. Le crème en fond n'apparaît que dans 1 à 2 sections maximum sur toute la page (respiration — actuellement la FAQ), jamais comme fond dominant. Accent unique bronze/cuivre sourd `#8C5A34`, utilisé en petites touches (traits fins, chiffres clés, labels) — **jamais en aplat de bouton plein**. Pas de bleu, pas de violet, pas de dégradé.
+- **Tokens** (`app/globals.css` + `components/section-variant.ts`) : `ink`, `ink-soft`, `creme`, `creme-soft`, `bronze`. Chaque section reçoit une prop `tone: "ink" | "ink-soft" | "creme"` — ne pas coder une couleur de fond en dur dans une section, toujours passer par `sectionTokens[tone]`.
+- **Typographie** : `Fraunces` pour tous les titres (letter-spacing resserré, marges généreuses autour), `DM Sans` pour le corps de texte. Labels, boutons et éléments de navigation en petites capitales avec letter-spacing large (classe utilitaire `.label`). Chargées via `next/font`.
+- **Illustrations** : jamais d'objet figuratif reconnaissable (pas de panier dessiné, pas de visage, pas d'icône évoquant un sourire) et jamais d'iconographie tech générique (pas de robot, pas de puce, pas de néon). Uniquement des traits géométriques abstraits, fins, animés avec parcimonie (`components/illustrations/AbstractMark.tsx`, `Signature.tsx`) ou de l'espace négatif assumé.
+- **Boutons** (`components/CtaButton.tsx`, à réutiliser partout) : jamais de pilule pleine colorée. Bordure fine 1px, fond transparent par défaut, remplissage bronze discret et progressif au survol (pas un simple changement d'opacité), angles peu arrondis (2-4px), label en petites capitales.
 - Toute nouvelle section doit respecter cette palette et cette typographie sans exception — ne pas introduire de nouvelles couleurs ou polices sans en discuter d'abord.
 
 ## Règles non négociables

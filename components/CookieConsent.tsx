@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import CtaButton from "@/components/CtaButton";
 import { ConsentCategories, writeConsent } from "@/lib/consent";
 import { useConsent } from "@/lib/useConsent";
 
@@ -40,7 +41,7 @@ export default function CookieConsent() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="fixed inset-x-0 bottom-0 z-50 p-4 sm:p-6"
         >
-          <div className="mx-auto max-w-3xl rounded-2xl border border-brun/10 bg-creme shadow-xl shadow-brun/10 p-5 sm:p-6">
+          <div className="mx-auto max-w-3xl rounded-[3px] border border-creme/15 bg-ink text-creme shadow-xl shadow-black/30 p-5 sm:p-6">
             <p className="text-sm sm:text-base leading-relaxed">
               Nous utilisons des cookies essentiels au fonctionnement du site.
               Avec votre accord, nous utilisons aussi des cookies de mesure
@@ -57,22 +58,22 @@ export default function CookieConsent() {
                   exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="mt-4 space-y-3 border-t border-brun/10 pt-4">
+                  <div className="mt-4 space-y-3 border-t border-creme/15 pt-4">
                     <div className="flex items-center justify-between gap-4">
                       <div>
                         <p className="font-medium text-sm">Essentiels</p>
-                        <p className="text-xs text-brun-soft">
+                        <p className="text-xs text-creme/65">
                           Nécessaires au fonctionnement du site, toujours actifs.
                         </p>
                       </div>
-                      <span className="text-xs uppercase tracking-wide text-brun-soft">
+                      <span className="label text-xs text-creme/65">
                         Toujours actif
                       </span>
                     </div>
                     <div className="flex items-center justify-between gap-4">
                       <div>
                         <p className="font-medium text-sm">Mesure d&apos;audience</p>
-                        <p className="text-xs text-brun-soft">
+                        <p className="text-xs text-creme/65">
                           Statistiques anonymes de fréquentation.
                         </p>
                       </div>
@@ -82,14 +83,14 @@ export default function CookieConsent() {
                         onChange={(e) =>
                           setCategories((c) => ({ ...c, analytics: e.target.checked }))
                         }
-                        className="h-5 w-5 accent-terracotta"
+                        className="h-5 w-5 accent-bronze"
                         aria-label="Autoriser les cookies de mesure d'audience"
                       />
                     </div>
                     <div className="flex items-center justify-between gap-4">
                       <div>
                         <p className="font-medium text-sm">Chat</p>
-                        <p className="text-xs text-brun-soft">
+                        <p className="text-xs text-creme/65">
                           Permet d&apos;afficher le widget de messagerie.
                         </p>
                       </div>
@@ -99,7 +100,7 @@ export default function CookieConsent() {
                         onChange={(e) =>
                           setCategories((c) => ({ ...c, chat: e.target.checked }))
                         }
-                        className="h-5 w-5 accent-terracotta"
+                        className="h-5 w-5 accent-bronze"
                         aria-label="Autoriser les cookies de chat"
                       />
                     </div>
@@ -109,29 +110,20 @@ export default function CookieConsent() {
             </AnimatePresence>
 
             <div className="mt-5 flex flex-wrap items-center gap-3">
-              <button
-                onClick={acceptAll}
-                className="rounded-full bg-terracotta px-5 py-2.5 text-sm font-medium text-creme hover:bg-terracotta-dark transition-colors"
-              >
+              <CtaButton onClick={acceptAll} className="text-[11px] px-4 py-2">
                 Tout accepter
-              </button>
-              <button
-                onClick={refuseAll}
-                className="rounded-full border border-brun/20 px-5 py-2.5 text-sm font-medium hover:bg-brun/5 transition-colors"
-              >
+              </CtaButton>
+              <CtaButton onClick={refuseAll} className="text-[11px] px-4 py-2">
                 Tout refuser
-              </button>
+              </CtaButton>
               {showDetails ? (
-                <button
-                  onClick={saveCustom}
-                  className="rounded-full border border-brun/20 px-5 py-2.5 text-sm font-medium hover:bg-brun/5 transition-colors"
-                >
+                <CtaButton onClick={saveCustom} className="text-[11px] px-4 py-2">
                   Enregistrer mes choix
-                </button>
+                </CtaButton>
               ) : (
                 <button
                   onClick={() => setShowDetails(true)}
-                  className="text-sm font-medium underline underline-offset-4 hover:text-terracotta transition-colors"
+                  className="text-sm font-medium underline underline-offset-4 hover:text-bronze transition-colors"
                 >
                   Personnaliser
                 </button>

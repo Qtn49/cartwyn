@@ -16,16 +16,16 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <Hero variant="light" />
-        <Constat variant="light" />
-        <CommentCaMarche variant="dark" />
-        <Simulateur variant="light" />
-        <StackValeur variant="light" />
-        <Methode variant="light" />
-        <Tarifs variant="dark" />
-        <APropos variant="light" />
-        <FAQ variant="light" />
-        <Contact variant="light" />
+        <Hero tone="ink" />
+        <Constat tone="ink" />
+        <CommentCaMarche tone="ink-soft" />
+        <Simulateur tone="ink" />
+        <StackValeur tone="ink" />
+        <Methode tone="ink" />
+        <Tarifs tone="ink-soft" />
+        <APropos tone="ink" />
+        <FAQ tone="creme" />
+        <Contact tone="ink" />
       </main>
       <Footer />
     </>

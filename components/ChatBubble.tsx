@@ -30,7 +30,7 @@ export default function ChatBubble() {
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-72 rounded-2xl border border-brun/10 bg-creme p-4 shadow-xl shadow-brun/10"
+          className="w-72 rounded-[3px] border border-creme/15 bg-ink text-creme p-4 shadow-xl shadow-black/30"
         >
           <p className="text-sm leading-relaxed">
             {chatAllowed
@@ -40,7 +40,7 @@ export default function ChatBubble() {
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="mt-3 inline-block text-sm font-medium text-terracotta underline underline-offset-4 hover:text-terracotta-dark"
+            className="mt-3 inline-block text-sm font-medium text-bronze underline underline-offset-4 hover:text-creme transition-colors"
           >
             Aller au formulaire de contact
           </a>
@@ -49,15 +49,15 @@ export default function ChatBubble() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Une question ?"
-        className="flex items-center gap-2 rounded-full bg-brun px-5 py-3 text-sm font-medium text-creme shadow-lg shadow-brun/20 hover:bg-brun/90 transition-colors"
+        className="label flex items-center gap-2 rounded-full border border-creme/25 bg-ink px-5 py-3 text-xs font-medium text-creme shadow-lg shadow-black/30 transition-colors hover:border-bronze"
       >
         <svg
-          width="18"
-          height="18"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.8"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"

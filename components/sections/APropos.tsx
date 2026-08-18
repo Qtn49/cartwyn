@@ -11,7 +11,7 @@ import {
 import FadeIn from "@/components/FadeIn";
 import Signature from "@/components/illustrations/Signature";
 import { placesDisponibles } from "@/lib/pricing";
-import { sectionTokens, type SectionVariant } from "@/components/section-variant";
+import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 const paragraphs = [
   <>
@@ -39,13 +39,13 @@ const paragraphs = [
 ];
 
 type AProposProps = {
-  variant?: SectionVariant;
+  tone?: SectionTone;
 };
 
-export default function APropos({ variant = "light" }: AProposProps) {
+export default function APropos({ tone = "ink" }: AProposProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const t = sectionTokens[variant];
+  const t = sectionTokens[tone];
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -57,17 +57,17 @@ export default function APropos({ variant = "light" }: AProposProps) {
 
   return (
     <section ref={sectionRef} className={`${t.bg} ${t.text}`}>
-      <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto max-w-3xl px-5 py-24 sm:px-8 lg:py-36">
         <FadeIn>
-          <p className="text-sm font-medium uppercase tracking-wide text-terracotta">
+          <p className="label text-sm font-medium text-bronze">
             À propos
           </p>
-          <h2 className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">
+          <h2 className="mt-4 font-display text-3xl font-semibold leading-tight sm:text-4xl">
             Une méthode, une marque — pas une promesse en l&apos;air.
           </h2>
         </FadeIn>
 
-        <Signature progress={progress} className="mt-10 h-16 w-40" />
+        <Signature progress={progress} className="mt-12 h-16 w-40" />
 
         <div className={`mt-8 space-y-5 text-lg leading-relaxed ${t.textSoft}`}>
           {paragraphs.map((paragraph, i) => (

@@ -8,16 +8,15 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import Panier from "@/components/illustrations/Panier";
 import CountUp from "@/components/CountUp";
 import { stats, type Stat } from "@/lib/stats";
-import { sectionTokens, type SectionVariant } from "@/components/section-variant";
+import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 type ConstatProps = {
-  variant?: SectionVariant;
+  tone?: SectionTone;
 };
 
-export default function Constat({ variant = "light" }: ConstatProps) {
+export default function Constat({ tone = "ink" }: ConstatProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -27,21 +26,24 @@ export default function Constat({ variant = "light" }: ConstatProps) {
   const scrollFill = useTransform(scrollYProgress, [0, 1], [1, 0]);
   const staticFill = useMotionValue(0);
   const fill = shouldReduceMotion ? staticFill : scrollFill;
-  const t = sectionTokens[variant];
+  const t = sectionTokens[tone];
 
   return (
     <section ref={sectionRef} id="constat" className={`relative ${t.bg} ${t.text}`}>
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-32">
+      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:py-40">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <p className="text-sm font-medium uppercase tracking-wide text-terracotta">
+            <p className="label text-sm font-medium text-bronze">
               Le constat
             </p>
-            <h2 className="mt-3 max-w-md font-display text-3xl font-semibold leading-tight sm:text-4xl">
+            <h2 className="mt-4 max-w-md font-display text-3xl font-semibold leading-tight sm:text-4xl">
               Sans relance structurée, ce panier reste vide.
             </h2>
-            <div className="mx-auto mt-10 max-w-xs">
-              <Panier fill={fill} className="h-auto w-full" variant={variant} />
+            <div className={`mx-auto mt-12 h-40 w-px ${t.line}`}>
+              <motion.div
+                className="w-px bg-bronze"
+                style={{ scaleY: fill, transformOrigin: "top", height: "100%" }}
+              />
             </div>
           </div>
 
@@ -67,7 +69,7 @@ function StatItem({ stat }: { stat: Stat }) {
       viewport={{ once: true, margin: "-15% 0px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <p className="font-display text-5xl font-semibold text-terracotta sm:text-6xl">
+      <p className="font-display text-5xl font-semibold text-bronze sm:text-6xl">
         <CountUp
           value={stat.value}
           prefix={stat.prefix}

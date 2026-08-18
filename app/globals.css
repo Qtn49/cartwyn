@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
+/* Direction luxe : encre profonde dominante, crème en respiration rare,
+   bronze comme unique accent (jamais en aplat de bouton). Voir CLAUDE.md. */
 :root {
+  --color-ink: #12100d;
+  --color-ink-soft: #1b1712;
   --color-creme: #f3ece1;
-  --color-brun: #2b2117;
-  --color-terracotta: #b85c38;
-  --color-terracotta-dark: #9a4a2c;
   --color-creme-soft: #ece2d2;
-  --color-brun-soft: #5a4c3c;
+  --color-bronze: #8c5a34;
 }
 
 @theme inline {
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
   --color-creme: var(--color-creme);
-  --color-brun: var(--color-brun);
-  --color-terracotta: var(--color-terracotta);
-  --color-terracotta-dark: var(--color-terracotta-dark);
   --color-creme-soft: var(--color-creme-soft);
-  --color-brun-soft: var(--color-brun-soft);
+  --color-bronze: var(--color-bronze);
   --font-display: var(--font-fraunces);
   --font-body: var(--font-dm-sans);
 }
@@ -39,8 +39,8 @@ html {
 }
 
 body {
-  background: var(--color-creme);
-  color: var(--color-brun);
+  background: var(--color-ink);
+  color: var(--color-creme);
   font-family: var(--font-body), sans-serif;
 }
 
@@ -50,9 +50,15 @@ h3,
 h4,
 .font-display {
   font-family: var(--font-display), serif;
+  letter-spacing: -0.01em;
+}
+
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
 }
 
 ::selection {
-  background: var(--color-terracotta);
+  background: var(--color-bronze);
   color: var(--color-creme);
 }

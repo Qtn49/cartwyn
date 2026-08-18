@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import type { SectionTone } from "@/components/section-variant";
 
 type PlacesIndicatorProps = {
   total: number;
   restantes: number;
-  variant?: "light" | "dark";
+  tone?: SectionTone;
 };
 
 // Pastilles visuelles pour les places pilotes : les places prises pulsent
@@ -15,11 +16,11 @@ type PlacesIndicatorProps = {
 export default function PlacesIndicator({
   total,
   restantes,
-  variant = "dark",
+  tone = "ink",
 }: PlacesIndicatorProps) {
   const shouldReduceMotion = useReducedMotion();
   const prises = total - restantes;
-  const outlineColor = variant === "dark" ? "border-creme/30" : "border-brun/25";
+  const outlineColor = tone === "creme" ? "border-ink/25" : "border-creme/30";
 
   return (
     <div className="flex items-center gap-2" role="img" aria-label={`${restantes} places disponibles sur ${total}`}>
@@ -28,8 +29,8 @@ export default function PlacesIndicator({
         return (
           <motion.span
             key={i}
-            className={`h-3 w-3 rounded-full ${
-              isPrise ? "bg-terracotta" : `border ${outlineColor}`
+            className={`h-2.5 w-2.5 rounded-full ${
+              isPrise ? "bg-bronze" : `border ${outlineColor}`
             }`}
             animate={
               isPrise && !shouldReduceMotion

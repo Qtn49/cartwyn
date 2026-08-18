@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion } from "framer-motion";
-import Panier from "@/components/illustrations/Panier";
-import { sectionTokens, type SectionVariant } from "@/components/section-variant";
+import { motion, useReducedMotion } from "framer-motion";
+import AbstractMark from "@/components/illustrations/AbstractMark";
+import CtaButton from "@/components/CtaButton";
+import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 const badges = [
   "Hébergement France/UE",
@@ -11,59 +12,48 @@ const badges = [
 ];
 
 type HeroProps = {
-  variant?: SectionVariant;
+  tone?: SectionTone;
 };
 
-export default function Hero({ variant = "light" }: HeroProps) {
+export default function Hero({ tone = "ink" }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
-  const fill = useMotionValue(1);
-  const t = sectionTokens[variant];
+  const t = sectionTokens[tone];
 
   return (
-    <section className={`relative overflow-hidden px-5 pt-14 pb-20 sm:px-8 sm:pt-20 sm:pb-28 ${t.bg} ${t.text}`}>
+    <section className={`relative overflow-hidden px-5 pt-24 pb-24 sm:px-8 sm:pt-32 sm:pb-32 ${t.bg} ${t.text}`}>
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <h1 className="font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             Chaque panier abandonné a une histoire.{" "}
-            <span className="text-terracotta">
+            <span className="text-bronze">
               La vôtre peut encore bien finir.
             </span>
           </h1>
-          <p className={`mt-6 max-w-xl text-lg leading-relaxed ${t.textSoft}`}>
+          <p className={`mt-7 max-w-xl text-lg leading-relaxed ${t.textSoft}`}>
             Cartwyn relance automatiquement vos paniers abandonnés et
             qualifie chaque prospect, avec un suivi personnalisé à chaque
             installation.
           </p>
-          <div className="mt-8">
-            <a
-              href="#contact"
-              className="inline-block rounded-full bg-terracotta px-7 py-3.5 text-base font-medium text-creme transition-colors hover:bg-terracotta-dark"
-            >
-              Recevoir mon audit gratuit
-            </a>
+          <div className="mt-10">
+            <CtaButton href="#contact">Recevoir mon audit gratuit</CtaButton>
           </div>
-          <ul className={`mt-9 flex flex-wrap gap-x-6 gap-y-2 text-sm ${t.textSoft}`}>
+          <ul className={`mt-12 flex flex-wrap gap-x-6 gap-y-2 text-sm ${t.textSoft}`}>
             {badges.map((badge) => (
               <li key={badge} className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-terracotta" />
+                <span className="h-1 w-1 rounded-full bg-bronze" />
                 {badge}
               </li>
             ))}
           </ul>
         </motion.div>
 
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-          className="mx-auto w-full max-w-sm"
-        >
-          <Panier fill={fill} className="h-auto w-full" />
-        </motion.div>
+        <div className="mx-auto hidden w-full max-w-[200px] lg:block">
+          <AbstractMark className="h-auto w-full" />
+        </div>
       </div>
     </section>
   );

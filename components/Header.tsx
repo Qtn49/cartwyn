@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import CtaButton from "@/components/CtaButton";
 
 const navLinks = [
   { href: "#comment-ca-marche", label: "Comment ça marche" },
@@ -27,10 +28,10 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-30 transition-all duration-300 ${
+      className={`sticky top-0 z-30 text-creme transition-all duration-300 ${
         scrolled
-          ? "border-b border-brun/10 bg-creme/90 shadow-sm shadow-brun/5 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+          ? "border-b border-creme/10 bg-ink/95 shadow-sm shadow-black/20 backdrop-blur-md"
+          : "border-b border-transparent bg-ink/40 backdrop-blur-sm"
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
@@ -38,21 +39,18 @@ export default function Header() {
           Cartwyn
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
+        <nav className="label hidden lg:flex items-center gap-8 text-xs font-medium">
           {navLinks.map((link) => (
             <a key={link.href} href={link.href} className="group relative py-1">
               {link.label}
-              <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-terracotta transition-transform duration-300 ease-out group-hover:scale-x-100" />
+              <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-bronze transition-transform duration-300 ease-out group-hover:scale-x-100" />
             </a>
           ))}
         </nav>
 
-        <a
-          href="#contact"
-          className="hidden lg:inline-block rounded-full bg-terracotta px-4 py-2 text-sm font-medium text-creme transition-colors hover:bg-terracotta-dark"
-        >
+        <CtaButton href="#contact" className="hidden lg:inline-flex">
           Recevoir mon audit gratuit
-        </a>
+        </CtaButton>
 
         <button
           className="lg:hidden flex flex-col gap-1.5 p-2"
@@ -61,13 +59,13 @@ export default function Header() {
           onClick={() => setOpen((o) => !o)}
         >
           <span
-            className={`block h-0.5 w-6 bg-brun transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}
+            className={`block h-0.5 w-6 bg-creme transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}
           />
           <span
-            className={`block h-0.5 w-6 bg-brun transition-opacity ${open ? "opacity-0" : ""}`}
+            className={`block h-0.5 w-6 bg-creme transition-opacity ${open ? "opacity-0" : ""}`}
           />
           <span
-            className={`block h-0.5 w-6 bg-brun transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}
+            className={`block h-0.5 w-6 bg-creme transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}
           />
         </button>
       </div>
@@ -77,7 +75,7 @@ export default function Header() {
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          className="lg:hidden overflow-hidden border-t border-brun/10 bg-creme"
+          className="lg:hidden overflow-hidden border-t border-creme/10 bg-ink"
         >
           <div className="flex flex-col gap-1 px-5 py-4">
             {navLinks.map((link) => (
@@ -85,18 +83,14 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-2 py-3 text-base font-medium hover:bg-brun/5"
+                className="label rounded-[3px] px-2 py-3 text-sm font-medium hover:bg-creme/5"
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href="#contact"
-              onClick={() => setOpen(false)}
-              className="mt-2 rounded-full bg-terracotta px-5 py-3 text-center text-sm font-medium text-creme"
-            >
+            <CtaButton href="#contact" onClick={() => setOpen(false)} className="mt-2 w-full">
               Recevoir mon audit gratuit
-            </a>
+            </CtaButton>
           </div>
         </motion.nav>
       )}

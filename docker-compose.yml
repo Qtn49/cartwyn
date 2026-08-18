@@ -1,0 +1,15 @@
+# Un reverse proxy (Caddy, Nginx ou Traefik) doit être configuré séparément
+# sur le serveur dédié pour exposer ce service en HTTPS sur cartwyn.fr —
+# ce n'est pas géré dans ce dépôt, c'est une étape à faire directement sur
+# le serveur (le proxy doit pointer vers le conteneur cartwyn sur le port 3000).
+services:
+  cartwyn:
+    build: .
+    container_name: cartwyn
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_FORMSPREE_ENDPOINT=${NEXT_PUBLIC_FORMSPREE_ENDPOINT}
+    env_file:
+      - .env.production

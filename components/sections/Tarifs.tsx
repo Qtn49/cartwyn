@@ -1,33 +1,31 @@
 import FadeIn from "@/components/FadeIn";
 import PlacesIndicator from "@/components/PlacesIndicator";
 import { pricing, placesDisponibles } from "@/lib/pricing";
-import { sectionTokens, type SectionVariant } from "@/components/section-variant";
+import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 type TarifsProps = {
-  variant?: SectionVariant;
+  tone?: SectionTone;
 };
 
-export default function Tarifs({ variant = "dark" }: TarifsProps) {
-  const t = sectionTokens[variant];
-  const cardBorder = variant === "dark" ? "border-creme/15" : "border-brun/10";
-  const cardBg = variant === "dark" ? "bg-brun-soft/20" : "bg-creme";
+export default function Tarifs({ tone = "ink-soft" }: TarifsProps) {
+  const t = sectionTokens[tone];
 
   return (
     <section id="tarifs" className={`${t.bg} ${t.text}`}>
-      <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8 lg:py-28">
+      <div className="mx-auto max-w-4xl px-5 py-24 sm:px-8 lg:py-36">
         <FadeIn className="text-center">
-          <p className="text-sm font-medium uppercase tracking-wide text-terracotta">
+          <p className="label text-sm font-medium text-bronze">
             Tarifs
           </p>
-          <h2 className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">
+          <h2 className="mt-4 font-display text-3xl font-semibold leading-tight sm:text-4xl">
             Une seule offre, pensée pour durer.
           </h2>
         </FadeIn>
 
-        <FadeIn delay={0.1} className={`mt-12 overflow-hidden rounded-3xl border ${cardBorder} ${cardBg}`}>
+        <FadeIn delay={0.1} className={`mt-14 overflow-hidden rounded-[3px] border ${t.border}`}>
           <table className="w-full text-left">
             <thead>
-              <tr className={`border-b ${cardBorder}`}>
+              <tr className={`border-b ${t.border}`}>
                 <th className={`px-6 py-4 text-sm font-medium sm:px-8 ${t.textSoft}`}>
                   &nbsp;
                 </th>
@@ -37,20 +35,20 @@ export default function Tarifs({ variant = "dark" }: TarifsProps) {
               </tr>
             </thead>
             <tbody>
-              <tr className={`border-b ${cardBorder}`}>
+              <tr className={`border-b ${t.border}`}>
                 <td className={`px-6 py-5 sm:px-8 ${t.textSoft}`}>
                   {pricing.installation.label}
                 </td>
-                <td className="px-6 py-5 font-display text-lg font-semibold text-terracotta sm:px-8">
+                <td className="px-6 py-5 font-display text-lg font-semibold text-bronze sm:px-8">
                   {pricing.installation.display}
                 </td>
               </tr>
-              <tr className={`border-b ${cardBorder}`}>
+              <tr className={`border-b ${t.border}`}>
                 <td className={`px-6 py-5 sm:px-8 ${t.textSoft}`}>
                   {pricing.abonnement.label}
                 </td>
                 <td className="px-6 py-5 sm:px-8">
-                  <p className="font-display text-lg font-semibold text-terracotta">
+                  <p className="font-display text-lg font-semibold text-bronze">
                     {pricing.abonnement.display}
                   </p>
                   <p className={`mt-1 text-sm ${t.textSoft}`}>
@@ -67,7 +65,7 @@ export default function Tarifs({ variant = "dark" }: TarifsProps) {
                     <PlacesIndicator
                       total={placesDisponibles.total}
                       restantes={placesDisponibles.restantes}
-                      variant={variant}
+                      tone={tone}
                     />
                     <span className="font-display text-lg font-semibold">
                       {placesDisponibles.restantes}/{placesDisponibles.total} places
@@ -88,7 +86,7 @@ export default function Tarifs({ variant = "dark" }: TarifsProps) {
           </p>
         </FadeIn>
 
-        <FadeIn delay={0.2} className={`mt-8 rounded-2xl border p-6 ${cardBorder} ${cardBg}`}>
+        <FadeIn delay={0.2} className={`mt-8 rounded-[3px] border p-6 ${t.border}`}>
           <p className="font-display text-lg font-semibold">
             Garantie de résultat, pas de remboursement sec
           </p>
