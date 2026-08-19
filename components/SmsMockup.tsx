@@ -81,7 +81,7 @@ export default function SmsMockup({ className = "" }: SmsMockupProps) {
         </div>
       </div>
 
-      <div ref={scrollRef} className="flex h-[360px] flex-col gap-3 overflow-y-auto px-5 py-5">
+      <div ref={scrollRef} className="no-scrollbar flex h-[360px] flex-col gap-3 overflow-y-auto px-5 py-5">
         <AnimatePresence initial={false}>
           {turns.map((turn, i) => (
             <motion.div

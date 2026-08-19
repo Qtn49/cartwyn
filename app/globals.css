@@ -62,3 +62,15 @@ h4,
   background: var(--color-bronze);
   color: var(--color-creme);
 }
+
+/* Scroll fonctionnel mais chrome de scrollbar masqué — utilisé pour le
+   cadre de conversation de la démo SMS, qui défile déjà automatiquement
+   vers le dernier message. Voir components/SmsMockup.tsx. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

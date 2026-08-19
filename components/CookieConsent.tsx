@@ -110,14 +110,14 @@ export default function CookieConsent() {
             </AnimatePresence>
 
             <div className="mt-5 flex flex-wrap items-center gap-3">
-              <CtaButton onClick={acceptAll} className="text-[11px] px-4 py-2">
+              <CtaButton tone="ink" onClick={acceptAll} className="text-[11px] px-4 py-2">
                 Tout accepter
               </CtaButton>
-              <CtaButton onClick={refuseAll} className="text-[11px] px-4 py-2">
+              <CtaButton tone="ink" onClick={refuseAll} className="text-[11px] px-4 py-2">
                 Tout refuser
               </CtaButton>
               {showDetails ? (
-                <CtaButton onClick={saveCustom} className="text-[11px] px-4 py-2">
+                <CtaButton tone="ink" onClick={saveCustom} className="text-[11px] px-4 py-2">
                   Enregistrer mes choix
                 </CtaButton>
               ) : (

@@ -16,21 +16,30 @@ export default function PolitiqueConfidentialite() {
           Politique de confidentialité
         </h1>
         <p className="mt-4 text-sm text-ink/65">
-          Dernière mise à jour : [date à compléter]
+          Dernière mise à jour : 20 août 2026
         </p>
 
         <div className="mt-10 space-y-8 text-ink/65 leading-relaxed">
           <section>
             <h2 className="font-display text-xl font-semibold text-ink">
+              Responsable du traitement
+            </h2>
+            <p className="mt-2">
+              Quentin Guez (Cartwyn), contact@cartwyn.fr.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl font-semibold text-ink">
               Données collectées
             </h2>
             <p className="mt-2">
-              Lorsque vous utilisez le formulaire de contact ou le simulateur
-              de CA récupérable, nous collectons : votre nom, votre adresse
-              email, l&apos;URL de votre boutique, votre plateforme
-              e-commerce et le volume approximatif de commandes mensuelles.
-              Le simulateur de CA lui-même ne transmet aucune donnée : les
-              calculs sont effectués localement dans votre navigateur.
+              Via le formulaire de contact : nom, email, téléphone, URL de la
+              boutique, plateforme e-commerce et volume approximatif de
+              commandes mensuelles. Aucune autre donnée personnelle n&apos;est
+              collectée par ailleurs. Le simulateur de CA récupérable ne
+              transmet aucune donnée : les calculs sont effectués localement
+              dans votre navigateur.
             </p>
           </section>
 
@@ -39,9 +48,34 @@ export default function PolitiqueConfidentialite() {
               Finalité du traitement
             </h2>
             <p className="mt-2">
-              Ces données sont utilisées exclusivement pour répondre à votre
-              demande d&apos;audit gratuit et, si vous devenez client, pour la
-              mise en place et le suivi du service Cartwyn.
+              Ces données sont utilisées pour traiter votre demande d&apos;audit
+              gratuit et vous recontacter par téléphone ou par email à ce
+              sujet.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl font-semibold text-ink">
+              Base légale
+            </h2>
+            <p className="mt-2">
+              Le traitement repose sur votre consentement explicite, recueilli
+              via la case à cocher dédiée du formulaire de contact, pour une
+              utilisation de vos informations à des fins commerciales.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl font-semibold text-ink">
+              Destinataires
+            </h2>
+            <p className="mt-2">
+              Les données transmises via le formulaire de contact transitent
+              par Formspree (société américaine), qui assure la gestion de la
+              boîte de réception du formulaire. Ce sous-traitant s&apos;appuie
+              sur des clauses contractuelles types (CCT) pour encadrer le
+              transfert de données hors Union européenne, conformément au
+              RGPD. Aucun autre destinataire n&apos;a accès à ces données.
             </p>
           </section>
 
@@ -49,13 +83,22 @@ export default function PolitiqueConfidentialite() {
             <h2 className="font-display text-xl font-semibold text-ink">
               Durée de conservation
             </h2>
-            {/* À compléter précisément selon la politique interne retenue. */}
             <p className="mt-2">
-              Les données des demandes non suivies d&apos;un client sont
-              conservées [durée à compléter, ex. 3 ans] puis supprimées. Les
-              données des clients sont conservées pendant la durée de la
-              relation contractuelle, augmentée des obligations légales de
-              conservation.
+              Les données sont conservées 3 ans à compter du dernier contact
+              si aucune relation commerciale n&apos;est établie.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl font-semibold text-ink">
+              Analytics
+            </h2>
+            <p className="mt-2">
+              Le site utilise Plausible, un outil de mesure d&apos;audience qui
+              ne dépose pas de cookie de tracking individuel et ne collecte
+              aucune donnée personnelle identifiante. Il n&apos;est activé
+              qu&apos;après votre consentement via le bandeau de gestion des
+              cookies, catégorie « Mesure d&apos;audience ».
             </p>
           </section>
 
@@ -64,24 +107,29 @@ export default function PolitiqueConfidentialite() {
               Cookies
             </h2>
             <p className="mt-2">
-              Seuls des cookies essentiels au fonctionnement du site sont
-              déposés par défaut. Les cookies de mesure d&apos;audience et de
-              chat ne sont déposés qu&apos;après votre consentement explicite,
-              recueilli via le bandeau de gestion des cookies. Vous pouvez
-              modifier votre choix à tout moment en effaçant les cookies de
-              votre navigateur pour ce site.
+              Trois catégories de cookies existent sur ce site, toutes
+              désactivées par défaut à l&apos;exception des essentiels :
             </p>
-          </section>
-
-          <section>
-            <h2 className="font-display text-xl font-semibold text-ink">
-              Hébergement et transfert de données
-            </h2>
-            {/* À compléter avec le nom exact de l'hébergeur retenu. */}
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>
+                <strong className="text-ink">Essentiels</strong> — nécessaires
+                au fonctionnement du site (mémorisation de votre choix de
+                consentement notamment), toujours actifs.
+              </li>
+              <li>
+                <strong className="text-ink">Mesure d&apos;audience</strong> —
+                statistiques anonymes de fréquentation via Plausible, déposés
+                uniquement si vous les acceptez.
+              </li>
+              <li>
+                <strong className="text-ink">Chat</strong> — permettent
+                d&apos;afficher le widget de messagerie, déposés uniquement si
+                vous les acceptez.
+              </li>
+            </ul>
             <p className="mt-2">
-              Les données sont hébergées en France/Union européenne, chez
-              [hébergeur à compléter]. Aucun transfert hors UE n&apos;est
-              effectué sans garanties appropriées.
+              Vous pouvez modifier votre choix à tout moment en effaçant les
+              cookies de votre navigateur pour ce site.
             </p>
           </section>
 
@@ -91,11 +139,11 @@ export default function PolitiqueConfidentialite() {
             </h2>
             <p className="mt-2">
               Conformément au RGPD, vous disposez d&apos;un droit
-              d&apos;accès, de rectification, d&apos;effacement, de
-              limitation et d&apos;opposition au traitement de vos données.
-              Pour exercer ces droits, contactez-nous à : [email à compléter].
-              Vous pouvez également introduire une réclamation auprès de la
-              CNIL (www.cnil.fr).
+              d&apos;accès, de rectification, d&apos;effacement,
+              d&apos;opposition et de portabilité de vos données. Pour
+              exercer ces droits, contactez-nous à contact@cartwyn.fr. Vous
+              pouvez également introduire une réclamation auprès de la CNIL
+              (cnil.fr).
             </p>
           </section>
         </div>

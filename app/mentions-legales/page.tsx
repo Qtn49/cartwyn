@@ -21,19 +21,22 @@ export default function MentionsLegales() {
             <h2 className="font-display text-xl font-semibold text-ink">
               Éditeur du site
             </h2>
-            {/* À compléter par le porteur du projet : statut juridique
-                (auto-entrepreneur / EI / société), dénomination, SIREN,
-                adresse du siège, capital social le cas échéant. */}
             <p className="mt-2">
-              Raison sociale / nom : [à compléter]
+              Éditeur : Quentin Guez, entrepreneur individuel (micro-entreprise)
               <br />
-              Statut juridique : [auto-entrepreneur / EI / société — à compléter]
+              SIREN : 899 504 344
               <br />
-              SIREN : [à compléter]
+              Forme d&apos;activité : libérale (auteur de logiciels)
               <br />
-              Adresse : [à compléter]
+              TVA : non applicable, article 293 B du Code général des impôts
+              (franchise en base de TVA)
               <br />
-              Email de contact : [à compléter]
+              Adresse du siège de l&apos;activité : 46 rue du Pré Pigeon, 49100
+              Angers
+              <br />
+              Email de contact : contact@cartwyn.fr
+              <br />
+              Téléphone : 06 48 59 24 88
             </p>
           </section>
 
@@ -41,20 +44,21 @@ export default function MentionsLegales() {
             <h2 className="font-display text-xl font-semibold text-ink">
               Directeur de la publication
             </h2>
-            {/* À compléter : nom de la personne responsable de la publication. */}
-            <p className="mt-2">[à compléter]</p>
+            <p className="mt-2">Quentin Guez.</p>
           </section>
 
           <section>
             <h2 className="font-display text-xl font-semibold text-ink">
               Hébergement
             </h2>
-            {/* À compléter avec l'hébergeur retenu (ex. Vercel Inc.),
-                sa raison sociale et son adresse. */}
+            {/* Coordonnées OVHcloud à revérifier sur ovhcloud.com avant
+                publication — elles peuvent avoir changé. */}
             <p className="mt-2">
-              Hébergeur : [à compléter — ex. Vercel Inc.]
+              Hébergeur : OVHcloud, SAS au capital de 10 174 560 €
               <br />
-              Adresse : [à compléter]
+              RCS Lille Métropole 424 761 419 00045
+              <br />
+              Adresse : 2 rue Kellermann, 59100 Roubaix, France
             </p>
           </section>
 
@@ -64,9 +68,9 @@ export default function MentionsLegales() {
             </h2>
             <p className="mt-2">
               L&apos;ensemble des contenus présents sur ce site (textes,
-              illustrations, logo) est la propriété de Cartwyn, sauf mention
-              contraire. Toute reproduction sans autorisation préalable est
-              interdite.
+              charte graphique, code) est la propriété de Quentin Guez /
+              Cartwyn, sauf mention contraire. Toute reproduction sans
+              autorisation préalable est interdite.
             </p>
           </section>
 
@@ -74,10 +78,9 @@ export default function MentionsLegales() {
             <h2 className="font-display text-xl font-semibold text-ink">
               Contact
             </h2>
-            {/* À compléter : adresse email de réception dédiée. */}
             <p className="mt-2">
-              Pour toute question relative à ces mentions légales : [email à
-              compléter]
+              Pour toute question relative à ces mentions légales :
+              contact@cartwyn.fr
             </p>
           </section>
         </div>
