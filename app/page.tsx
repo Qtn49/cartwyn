@@ -13,10 +13,26 @@ import CommentCaMarche from "@/components/sections/CommentCaMarche";
 import APropos from "@/components/sections/APropos";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
+import { siteUrl } from "@/lib/site";
+
+// Schema.org Organization : utile pour la recherche de marque (nom, logo,
+// URL dans les résultats Google), pas un balisage FAQPage — Google a
+// supprimé les FAQ rich results en mai 2026, pas la peine d'y investir.
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Cartwyn",
+  url: siteUrl,
+  logo: `${siteUrl}/icon.png`,
+};
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
       <Header />
       <main>
         <Hero tone="creme" />

@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 import CtaButton from "@/components/CtaButton";
 import { DELAI_REPONSE } from "@/lib/contact";
+import { trackEvent } from "@/lib/analytics";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 // Compte Formspree gratuit à créer sur https://formspree.io, puis coller
@@ -27,6 +29,7 @@ export default function Contact({ tone = "creme" }: ContactProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [plateforme, setPlateforme] = useState<(typeof plateformes)[number]["value"]>("shopify");
+  const [consentRgpd, setConsentRgpd] = useState(false);
   const t = sectionTokens[tone];
   const inputClass = `mt-2 w-full rounded-[3px] border px-4 py-3 ${t.border} bg-transparent ${t.text}`;
 
@@ -55,7 +58,9 @@ export default function Contact({ tone = "creme" }: ContactProps) {
       });
       if (!res.ok) throw new Error("L'envoi a échoué.");
       setStatus("success");
+      trackEvent("Formulaire soumis");
       form.reset();
+      setConsentRgpd(false);
     } catch (error) {
       setStatus("error");
       setErrorMessage(
@@ -165,7 +170,37 @@ export default function Contact({ tone = "creme" }: ContactProps) {
               </div>
 
               <div className="sm:col-span-2">
-                <CtaButton type="submit" tone={tone} disabled={status === "loading"} className="w-full sm:w-auto">
+                <label className="flex items-start gap-3 text-sm">
+                  <input
+                    type="checkbox"
+                    name="consentRgpd"
+                    checked={consentRgpd}
+                    onChange={(e) => setConsentRgpd(e.target.checked)}
+                    required
+                    className="mt-1 h-4 w-4 shrink-0 accent-bronze"
+                  />
+                  <span className={t.textSoft}>
+                    J&apos;accepte que Cartwyn utilise ces informations pour me
+                    recontacter au sujet de mon audit gratuit, conformément à
+                    la{" "}
+                    <Link
+                      href="/politique-de-confidentialite"
+                      className="text-bronze underline underline-offset-4 hover:text-ink transition-colors"
+                    >
+                      politique de confidentialité
+                    </Link>
+                    .
+                  </span>
+                </label>
+              </div>
+
+              <div className="sm:col-span-2">
+                <CtaButton
+                  type="submit"
+                  tone={tone}
+                  disabled={status === "loading" || !consentRgpd}
+                  className="w-full sm:w-auto"
+                >
                   {status === "loading" ? "Envoi en cours…" : "Recevoir mon audit"}
                 </CtaButton>
                 {status === "error" && (

@@ -3,6 +3,8 @@ import { Fraunces, DM_Sans } from "next/font/google";
 import "./globals.css";
 import CookieConsent from "@/components/CookieConsent";
 import ChatBubble from "@/components/ChatBubble";
+import AnalyticsScript from "@/components/AnalyticsScript";
+import { siteUrl } from "@/lib/site";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -13,8 +15,6 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
 });
-
-const siteUrl = "https://www.cartwyn.fr";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -54,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <CookieConsent />
         <ChatBubble />
+        <AnalyticsScript />
       </body>
     </html>
   );

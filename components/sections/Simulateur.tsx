@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
 import CtaButton from "@/components/CtaButton";
 import { simulateur } from "@/lib/pricing";
+import { trackEvent } from "@/lib/analytics";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 const FILL_REFERENCE_CA = 8000; // CA récupérable au-delà duquel la jauge est pleine
@@ -26,6 +27,13 @@ export default function Simulateur({ tone = "creme-soft" }: SimulateurProps) {
   const t = sectionTokens[tone];
   const gaugeScaleX = useTransform(fill, (v) => v);
   const numberScale = useTransform(fill, [0, 1], [0.94, 1.06]);
+  const hasTrackedInteraction = useRef(false);
+
+  function trackFirstInteraction() {
+    if (hasTrackedInteraction.current) return;
+    hasTrackedInteraction.current = true;
+    trackEvent("Simulateur utilisé");
+  }
 
   const { paniersAbandonnes, caPerdu, caRecuperable } = useMemo(() => {
     const ratio = simulateur.tauxAbandon / (1 - simulateur.tauxAbandon);
@@ -74,7 +82,10 @@ export default function Simulateur({ tone = "creme-soft" }: SimulateurProps) {
                 max={1000}
                 step={10}
                 value={commandes}
-                onChange={(e) => setCommandes(Number(e.target.value))}
+                onChange={(e) => {
+                  setCommandes(Number(e.target.value));
+                  trackFirstInteraction();
+                }}
                 className="mt-3 w-full accent-bronze"
               />
             </div>
@@ -91,7 +102,10 @@ export default function Simulateur({ tone = "creme-soft" }: SimulateurProps) {
                   max={500}
                   step={5}
                   value={panierMoyen}
-                  onChange={(e) => setPanierMoyen(Number(e.target.value) || 0)}
+                  onChange={(e) => {
+                    setPanierMoyen(Number(e.target.value) || 0);
+                    trackFirstInteraction();
+                  }}
                   className={`w-28 rounded-[3px] border px-3 py-2 text-base ${t.border} ${t.bg}`}
                 />
                 <span className={t.textSoft}>€</span>

@@ -18,7 +18,7 @@ type CtaButtonOnlyProps = BaseProps &
 type CtaButtonProps = CtaLinkProps | CtaButtonOnlyProps;
 
 const base =
-  "label group relative inline-flex items-center justify-center overflow-hidden rounded-[3px] border px-6 py-3 text-xs font-medium transition-colors duration-300 hover:border-bronze disabled:cursor-not-allowed disabled:opacity-50";
+  "label group relative inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-[3px] border px-6 py-3 text-xs font-medium transition-colors duration-300 hover:border-bronze disabled:cursor-not-allowed disabled:opacity-50";
 
 const toneClasses: Record<SectionTone, string> = {
   creme: "border-ink/30 text-ink",

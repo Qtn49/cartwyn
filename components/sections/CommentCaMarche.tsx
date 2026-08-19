@@ -9,6 +9,7 @@ import {
   useScroll,
 } from "framer-motion";
 import CtaButton from "@/components/CtaButton";
+import { trackEvent } from "@/lib/analytics";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 const steps = [
@@ -78,7 +79,13 @@ function CommentCaMarcheStatic({ tone }: { tone: SectionTone }) {
           viewport={{ once: true, margin: "-10% 0px" }}
           className="mt-16 text-center"
         >
-          <CtaButton href="#contact" tone={tone}>Recevoir mon audit gratuit</CtaButton>
+          <CtaButton
+            href="#contact"
+            tone={tone}
+            onClick={() => trackEvent("CTA cliqué", { emplacement: "comment-ca-marche" })}
+          >
+            Recevoir mon audit gratuit
+          </CtaButton>
         </motion.div>
       </div>
     </section>
@@ -154,7 +161,13 @@ function CommentCaMarchePinned({ tone }: { tone: SectionTone }) {
                   transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
                   className="mt-10"
                 >
-                  <CtaButton href="#contact" tone={tone}>Recevoir mon audit gratuit</CtaButton>
+                  <CtaButton
+            href="#contact"
+            tone={tone}
+            onClick={() => trackEvent("CTA cliqué", { emplacement: "comment-ca-marche" })}
+          >
+            Recevoir mon audit gratuit
+          </CtaButton>
                 </motion.div>
               )}
             </AnimatePresence>

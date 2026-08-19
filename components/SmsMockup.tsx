@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { smsConversation, type Leaf } from "@/components/smsConversationData";
+import { trackEvent } from "@/lib/analytics";
 
 type SmsMockupProps = {
   className?: string;
@@ -76,7 +77,7 @@ export default function SmsMockup({ className = "" }: SmsMockupProps) {
         </span>
         <div className="min-w-0">
           <p className="truncate text-sm font-medium text-ink">Cartwyn</p>
-          <p className="text-[11px] text-ink/45">Boutique en ligne</p>
+          <p className="text-[11px] text-ink/65">Boutique en ligne</p>
         </div>
       </div>
 
@@ -101,7 +102,7 @@ export default function SmsMockup({ className = "" }: SmsMockupProps) {
                   {turn.text}
                 </div>
                 <p
-                  className={`mt-1 text-[10px] text-ink/35 ${
+                  className={`mt-1 text-[10px] text-ink/65 ${
                     turn.from === "client" ? "text-right" : "text-left"
                   }`}
                 >
@@ -136,7 +137,10 @@ export default function SmsMockup({ className = "" }: SmsMockupProps) {
             {currentOptions.map((option) => (
               <button
                 key={option.id}
-                onClick={() => setPath((p) => [...p, option.id])}
+                onClick={() => {
+                  if (path.length === 0) trackEvent("Démo SMS utilisée");
+                  setPath((p) => [...p, option.id]);
+                }}
                 className="label rounded-[3px] border border-ink/20 px-3 py-2 text-left text-[11px] font-medium normal-case tracking-normal text-ink/80 transition-colors duration-300 hover:border-bronze hover:bg-bronze/10"
               >
                 {option.clientText}

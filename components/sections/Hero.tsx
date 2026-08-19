@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import AbstractMark from "@/components/illustrations/AbstractMark";
 import SmsMockup from "@/components/SmsMockup";
 import CtaButton from "@/components/CtaButton";
+import { trackEvent } from "@/lib/analytics";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 const badges = [
@@ -43,7 +44,13 @@ export default function Hero({ tone = "creme" }: HeroProps) {
             installation.
           </p>
           <div className="mt-10">
-            <CtaButton href="#contact" tone={tone}>Recevoir mon audit gratuit</CtaButton>
+            <CtaButton
+              href="#contact"
+              tone={tone}
+              onClick={() => trackEvent("CTA cliqué", { emplacement: "hero" })}
+            >
+              Recevoir mon audit gratuit
+            </CtaButton>
           </div>
           <ul className={`mt-12 flex flex-wrap gap-x-6 gap-y-2 text-sm ${t.textSoft}`}>
             {badges.map((badge) => (

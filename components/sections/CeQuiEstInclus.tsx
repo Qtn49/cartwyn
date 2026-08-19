@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import CtaButton from "@/components/CtaButton";
+import { trackEvent } from "@/lib/analytics";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 const items = [
@@ -67,7 +68,13 @@ export default function CeQuiEstInclus({ tone = "creme-soft" }: CeQuiEstInclusPr
         </ul>
 
         <div className="mt-14 text-center">
-          <CtaButton href="#contact" tone={tone}>Recevoir mon audit gratuit</CtaButton>
+          <CtaButton
+            href="#contact"
+            tone={tone}
+            onClick={() => trackEvent("CTA cliqué", { emplacement: "ce-qui-est-inclus" })}
+          >
+            Recevoir mon audit gratuit
+          </CtaButton>
         </div>
       </div>
     </section>

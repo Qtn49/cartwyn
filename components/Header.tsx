@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import CtaButton from "@/components/CtaButton";
+import { trackEvent } from "@/lib/analytics";
 
 const navLinks = [
   { href: "#comment-ca-marche", label: "Comment ça marche" },
@@ -48,26 +49,33 @@ export default function Header() {
           ))}
         </nav>
 
-        <CtaButton href="#contact" className="hidden lg:inline-flex">
-          Recevoir mon audit gratuit
-        </CtaButton>
+        <div className="flex items-center gap-2 lg:gap-4">
+          <CtaButton
+            href="#contact"
+            onClick={() => trackEvent("CTA cliqué", { emplacement: "header" })}
+            className="whitespace-nowrap px-3 py-2 text-[10px] sm:px-4 sm:py-2.5 sm:text-[11px] lg:px-6 lg:py-3 lg:text-xs"
+          >
+            <span className="lg:hidden">Audit gratuit</span>
+            <span className="hidden lg:inline">Recevoir mon audit gratuit</span>
+          </CtaButton>
 
-        <button
-          className="lg:hidden flex flex-col gap-1.5 p-2"
-          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((o) => !o)}
-        >
-          <span
-            className={`block h-0.5 w-6 bg-ink transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-ink transition-opacity ${open ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-ink transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}
-          />
-        </button>
+          <button
+            className="lg:hidden flex flex-col gap-1.5 p-2"
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}
+          >
+            <span
+              className={`block h-0.5 w-6 bg-ink transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}
+            />
+            <span
+              className={`block h-0.5 w-6 bg-ink transition-opacity ${open ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`block h-0.5 w-6 bg-ink transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}
+            />
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -88,7 +96,14 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
-            <CtaButton href="#contact" onClick={() => setOpen(false)} className="mt-2 w-full">
+            <CtaButton
+              href="#contact"
+              onClick={() => {
+                setOpen(false);
+                trackEvent("CTA cliqué", { emplacement: "header" });
+              }}
+              className="mt-2 w-full"
+            >
               Recevoir mon audit gratuit
             </CtaButton>
           </div>
