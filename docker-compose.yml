@@ -2,6 +2,11 @@
 # sur le serveur dédié pour exposer ce service en HTTPS sur cartwyn.fr —
 # ce n'est pas géré dans ce dépôt, c'est une étape à faire directement sur
 # le serveur (le proxy doit pointer vers le conteneur cartwyn sur le port 3000).
+# Les variables NEXT_PUBLIC_* sont figées dans le bundle client par Next.js
+# au moment du build (RUN npm run build dans le Dockerfile) : .env.production
+# doit donc déjà exister avec les bonnes valeurs AVANT `docker compose build`,
+# pas seulement avant `docker compose up`. Un `env_file` seul ne suffit pas
+# à changer ces valeurs sur une image déjà construite — il faut rebuild.
 services:
   cartwyn:
     build: .
@@ -9,7 +14,5 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_FORMSPREE_ENDPOINT=${NEXT_PUBLIC_FORMSPREE_ENDPOINT}
     env_file:
       - .env.production

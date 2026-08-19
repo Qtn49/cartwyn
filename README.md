@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cartwyn
 
-## Getting Started
+Site vitrine de Cartwyn — relance automatique des paniers abandonnés pour e-commerçants Shopify/PrestaShop, qualification du frein d'achat, reporting mensuel du CA récupéré.
 
-First, run the development server:
+Voir [CLAUDE.md](./CLAUDE.md) pour les règles de design, la structure narrative et les conventions de code.
+
+## Stack
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS, Framer Motion
+- Déploiement : conteneur Docker sur un serveur dédié (OVHcloud), reverse proxy Caddy
+
+## Développement local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # renseigner les vraies valeurs
+npm run dev      # serveur de développement
+npm run build    # build de production
+npm run lint      # vérification du code
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Déploiement en production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Le serveur de production (`ubuntu@51.210.40.108`) héberge le site dans un conteneur Docker, derrière un reverse proxy **Caddy installé au niveau système** (pas dans `docker-compose.yml` — Caddy gère lui-même le certificat HTTPS Let's Encrypt pour `cartwyn.fr` / `www.cartwyn.fr` via `/etc/caddy/Caddyfile`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Premier déploiement
 
-## Learn More
+1. Se connecter en SSH au serveur : `ssh ubuntu@51.210.40.108`.
+2. Cloner le dépôt dans `/home/ubuntu/cartwyn`.
+3. Créer `/home/ubuntu/cartwyn/.env.production` **directement sur le serveur** (ce fichier n'est jamais committé — voir `.env.production.example` pour la liste des variables attendues). Important : les variables `NEXT_PUBLIC_*` sont figées dans le bundle client par Next.js **au moment du build**, donc ce fichier doit exister avec les bonnes valeurs *avant* `docker compose build`, pas seulement avant `docker compose up`.
+4. Installer et configurer Caddy (`/etc/caddy/Caddyfile`) avec le nom de domaine réel, `reverse_proxy localhost:3000`.
+5. `docker compose build && docker compose up -d`.
 
-To learn more about Next.js, take a look at the following resources:
+### Mises à jour ultérieures
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Utiliser [`deploy.sh`](./deploy.sh), à exécuter **depuis le serveur** (ou via `ssh ubuntu@51.210.40.108 'cd /home/ubuntu/cartwyn && ./deploy.sh'` depuis une machine locale disposant de l'accès SSH) :
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+./deploy.sh
+```
 
-## Deploy on Vercel
+Si une variable `NEXT_PUBLIC_*` a changé, mettre à jour `.env.production` sur le serveur **avant** de lancer `deploy.sh`, sinon le rebuild embarquera l'ancienne valeur.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Secrets
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Aucun secret réel (endpoint Formspree, domaine Plausible, clé SSH du serveur) ne doit jamais apparaître dans ce dépôt Git, un commit, ou une sortie de log. Les vraies valeurs vivent uniquement dans `/home/ubuntu/cartwyn/.env.production` sur le serveur de production.
