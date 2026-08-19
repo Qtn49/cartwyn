@@ -30,17 +30,6 @@ export default function Footer() {
               CGV
             </Link>
           </div>
-
-          <div className="label flex flex-col gap-2 text-sm">
-            <p className="font-medium text-creme/65">Réseaux</p>
-            {/* Liens à compléter avec les vrais profils Cartwyn */}
-            <a href="#" className="hover:text-bronze transition-colors">
-              LinkedIn
-            </a>
-            <a href="#" className="hover:text-bronze transition-colors">
-              Instagram
-            </a>
-          </div>
         </div>
 
         <p className="mt-10 text-xs text-creme/65">

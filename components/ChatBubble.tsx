@@ -1,28 +1,73 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useConsent } from "@/lib/useConsent";
+import { trackEvent } from "@/lib/analytics";
 
-// Intégration Crisp : remplacer CRISP_WEBSITE_ID par la clé du compte Cartwyn,
-// puis décommenter le chargement du script dans useEffect ci-dessous.
-// const CRISP_WEBSITE_ID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+type ChatMessage = { role: "user" | "assistant"; content: string };
+
+const GREETING: ChatMessage = {
+  role: "assistant",
+  content: "Bonjour ! Une question sur Cartwyn, les tarifs ou comment démarrer ?",
+};
+
+const GENERIC_ERROR =
+  "Je n'arrive pas à répondre pour le moment. Écris-nous à contact@cartwyn.fr, on te répond rapidement.";
 
 export default function ChatBubble() {
   const consent = useConsent();
   const chatAllowed = consent.chat;
   const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [limited, setLimited] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!chatAllowed) return;
-    // window.$crisp = [];
-    // window.CRISP_WEBSITE_ID = CRISP_WEBSITE_ID;
-    // const script = document.createElement("script");
-    // script.src = "https://client.crisp.chat/l.js";
-    // script.async = true;
-    // document.head.appendChild(script);
-  }, [chatAllowed]);
+    scrollRef.current?.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: shouldReduceMotion ? "auto" : "smooth",
+    });
+  }, [messages.length, loading, shouldReduceMotion]);
+
+  async function handleSend() {
+    const text = input.trim();
+    if (!text || loading || limited) return;
+
+    if (!hasStarted) {
+      trackEvent("Chat utilisé");
+      setHasStarted(true);
+    }
+
+    const nextMessages: ChatMessage[] = [
+      ...messages,
+      { role: "user", content: text },
+    ];
+    setMessages(nextMessages);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: nextMessages }),
+      });
+      const data = await res.json().catch(() => null);
+      const reply: string =
+        (data && typeof data.reply === "string" && data.reply) || GENERIC_ERROR;
+      setMessages((m) => [...m, { role: "assistant", content: reply }]);
+      if (data?.limited) setLimited(true);
+    } catch {
+      setMessages((m) => [...m, { role: "assistant", content: GENERIC_ERROR }]);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
@@ -30,20 +75,101 @@ export default function ChatBubble() {
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-72 rounded-[3px] border border-creme/15 bg-ink text-creme p-4 shadow-xl shadow-black/30"
+          className="flex w-[min(22rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-[3px] border border-creme/15 bg-ink text-creme shadow-xl shadow-black/30"
         >
-          <p className="text-sm leading-relaxed">
-            {chatAllowed
-              ? "Le chat sera bientôt disponible ici. En attendant, écrivez-nous directement."
-              : "Activez les cookies de chat dans les préférences pour discuter en direct, ou écrivez-nous directement."}
-          </p>
-          <a
-            href="#contact"
-            onClick={() => setOpen(false)}
-            className="mt-3 inline-block text-sm font-medium text-bronze underline underline-offset-4 hover:text-creme transition-colors"
-          >
-            Aller au formulaire de contact
-          </a>
+          <div className="border-b border-creme/15 px-4 py-3">
+            <p className="label text-xs font-medium text-creme/65">Cartwyn</p>
+          </div>
+
+          {!chatAllowed ? (
+            <div className="p-4">
+              <p className="text-sm leading-relaxed">
+                Active les cookies de chat dans les préférences pour discuter
+                en direct, ou écris-nous directement.
+              </p>
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="mt-3 inline-block text-sm font-medium text-bronze underline underline-offset-4 hover:text-creme transition-colors"
+              >
+                Aller au formulaire de contact
+              </a>
+            </div>
+          ) : (
+            <>
+              <div
+                ref={scrollRef}
+                className="no-scrollbar flex max-h-80 flex-col gap-2.5 overflow-y-auto px-4 py-4"
+              >
+                {messages.map((m, i) => (
+                  <div
+                    key={i}
+                    className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    <div
+                      className={`max-w-[85%] rounded-[3px] px-3.5 py-2 text-sm leading-relaxed ${
+                        m.role === "user"
+                          ? "bg-bronze/25 text-creme"
+                          : "border border-creme/15 bg-ink-soft text-creme"
+                      }`}
+                    >
+                      {m.content}
+                    </div>
+                  </div>
+                ))}
+                {loading && (
+                  <div className="flex justify-start">
+                    <div
+                      className="rounded-[3px] border border-creme/15 bg-ink-soft px-3.5 py-2 text-sm text-creme/50"
+                      aria-live="polite"
+                      aria-label="En train de répondre"
+                    >
+                      …
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="border-t border-creme/15 p-3">
+                {limited ? (
+                  <a
+                    href="#contact"
+                    onClick={() => setOpen(false)}
+                    className="label block text-center text-[11px] font-medium text-bronze underline underline-offset-4 hover:text-creme transition-colors"
+                  >
+                    Aller au formulaire de contact
+                  </a>
+                ) : (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSend();
+                    }}
+                    className="flex items-center gap-2"
+                  >
+                    <input
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      maxLength={1000}
+                      placeholder="Écris ta question…"
+                      disabled={loading}
+                      aria-label="Ton message"
+                      className="min-w-0 flex-1 rounded-[3px] border border-creme/20 bg-transparent px-3 py-2 text-sm text-creme placeholder:text-creme/40 focus:border-bronze focus:outline-none disabled:opacity-50"
+                    />
+                    <button
+                      type="submit"
+                      disabled={loading || !input.trim()}
+                      aria-label="Envoyer"
+                      className="label shrink-0 rounded-[3px] border border-creme/25 px-3 py-2 text-xs font-medium text-creme transition-colors hover:border-bronze disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Envoyer
+                    </button>
+                  </form>
+                )}
+              </div>
+            </>
+          )}
         </motion.div>
       )}
       <button
