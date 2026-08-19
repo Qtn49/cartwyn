@@ -6,10 +6,14 @@ import { useConsent } from "@/lib/useConsent";
 // Analytics privacy-friendly (Plausible) : pas de cookies, pas de données
 // personnelles collectées — cohérent avec le positionnement RGPD de la
 // marque, pas besoin d'un consentement séparé de celui du bandeau cookies.
-// Créer un compte gratuit sur https://plausible.io, y ajouter le domaine
-// cartwyn.fr, puis renseigner NEXT_PUBLIC_ANALYTICS_DOMAIN dans les
-// variables d'environnement (.env.production ou config du serveur Docker).
+// NEXT_PUBLIC_ANALYTICS_DOMAIN : domaine suivi (cartwyn.fr).
+// NEXT_PUBLIC_PLAUSIBLE_HOST : origine de l'instance Plausible (cloud
+// https://plausible.io par défaut, ou https://analytics.cartwyn.fr pour
+// l'instance auto-hébergée) — change aussi l'endpoint d'envoi des
+// événements, qui suit toujours l'origine du script.
 const ANALYTICS_DOMAIN = process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN;
+const PLAUSIBLE_HOST =
+  process.env.NEXT_PUBLIC_PLAUSIBLE_HOST || "https://plausible.io";
 
 export default function AnalyticsScript() {
   const consent = useConsent();
@@ -26,7 +30,7 @@ export default function AnalyticsScript() {
       <Script
         strategy="afterInteractive"
         data-domain={ANALYTICS_DOMAIN}
-        src="https://plausible.io/js/script.js"
+        src={`${PLAUSIBLE_HOST}/js/script.js`}
       />
     </>
   );
