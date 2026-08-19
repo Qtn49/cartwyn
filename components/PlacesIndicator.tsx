@@ -20,7 +20,7 @@ export default function PlacesIndicator({
 }: PlacesIndicatorProps) {
   const shouldReduceMotion = useReducedMotion();
   const prises = total - restantes;
-  const outlineColor = tone === "creme" ? "border-ink/25" : "border-creme/30";
+  const outlineColor = tone === "ink" ? "border-creme/30" : "border-ink/25";
 
   return (
     <div className="flex items-center gap-2" role="img" aria-label={`${restantes} places disponibles sur ${total}`}>

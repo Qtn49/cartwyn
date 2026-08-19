@@ -16,9 +16,9 @@ export default function MentionsLegales() {
           Mentions légales
         </h1>
 
-        <div className="mt-10 space-y-8 text-creme/65 leading-relaxed">
+        <div className="mt-10 space-y-8 text-ink/65 leading-relaxed">
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Éditeur du site
             </h2>
             {/* À compléter par le porteur du projet : statut juridique
@@ -38,7 +38,7 @@ export default function MentionsLegales() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Directeur de la publication
             </h2>
             {/* À compléter : nom de la personne responsable de la publication. */}
@@ -46,7 +46,7 @@ export default function MentionsLegales() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Hébergement
             </h2>
             {/* À compléter avec l'hébergeur retenu (ex. Vercel Inc.),
@@ -59,7 +59,7 @@ export default function MentionsLegales() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Propriété intellectuelle
             </h2>
             <p className="mt-2">
@@ -71,7 +71,7 @@ export default function MentionsLegales() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Contact
             </h2>
             {/* À compléter : adresse email de réception dédiée. */}

@@ -6,30 +6,59 @@ export const pricing = {
     label: "Installation",
     amount: 0,
     display: "Offerte",
-    detail: "0€ — aucun frais de mise en place",
-  },
-  abonnement: {
-    label: "Abonnement",
-    amount: 200,
-    currency: "EUR",
-    period: "mois",
-    display: "200€/mois",
-    detail:
-      "1er mois : commission uniquement sur le CA récupéré via liens trackés, pas d'abonnement fixe",
+    detail: "0€ — aucun frais de mise en place, sur tous les paliers",
   },
   premierMois: {
     label: "1er mois",
     display: "Commission sur CA récupéré uniquement",
-    detail: "Pas d'abonnement fixe facturé le premier mois.",
+    detail:
+      "Pas d'abonnement fixe facturé le premier mois : uniquement une commission sur le CA attribué via liens trackés, plafonnée au tarif standard du palier, sur tous les paliers.",
   },
 } as const;
 
-// Compteur de places pilotes : limite de capacité réelle liée à l'accompagnement
-// personnalisé, jamais une remise marketing. À mettre à jour manuellement.
-export const placesDisponibles = {
-  total: 5,
-  restantes: 3,
+// Grille tarifaire par palier de volume de commandes mensuel. Un seul tarif
+// par palier — l'argument commercial pour les premiers clients est le
+// mécanisme du mois 1 plafonné (voir month1Offer), pas une remise de prix.
+// prioritySlotsTaken à mettre à jour manuellement au fil des ventes.
+export const pricingTiers = [
+  {
+    id: "essentiel",
+    name: "Essentiel",
+    ordersRange: "100-300 commandes/mois",
+    price: 300,
+    prioritySlotsTotal: 3,
+    prioritySlotsTaken: 0,
+  },
+  {
+    id: "croissance",
+    name: "Croissance",
+    ordersRange: "300-700 commandes/mois",
+    price: 600,
+    prioritySlotsTotal: 3,
+    prioritySlotsTaken: 0,
+  },
+  {
+    id: "volume",
+    name: "Volume",
+    ordersRange: "700-1000+ commandes/mois",
+    price: 1200,
+    prioritySlotsTotal: 3,
+    prioritySlotsTaken: 0,
+  },
+] as const;
+
+// Le mécanisme central proposé aux premiers clients : pas de remise sur le
+// tarif affiché, mais une facturation du premier mois plafonnée au tarif
+// standard du palier et indexée sur le CA réellement récupéré.
+export const month1Offer = {
+  headline:
+    "Le premier mois, vous ne payez que ce qu'on vous a fait gagner.",
+  description:
+    "Aucun abonnement facturé le premier mois : uniquement une commission sur le CA que Cartwyn vous a fait récupérer, plafonnée au tarif standard de votre palier. Vous ne payez donc jamais plus cher qu'un abonnement classique dès le premier mois — et souvent moins.",
 } as const;
+
+// Tarif le plus bas de la grille, pour l'accroche "À partir de".
+export const priceFrom = Math.min(...pricingTiers.map((tier) => tier.price));
 
 // Paramètres du simulateur de CA récupérable — voir section "Méthode de calcul".
 export const simulateur = {

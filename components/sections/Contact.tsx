@@ -18,9 +18,15 @@ type ContactProps = {
   tone?: SectionTone;
 };
 
-export default function Contact({ tone = "ink" }: ContactProps) {
+const plateformes = [
+  { value: "shopify", label: "Shopify" },
+  { value: "prestashop", label: "PrestaShop" },
+] as const;
+
+export default function Contact({ tone = "creme" }: ContactProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [plateforme, setPlateforme] = useState<(typeof plateformes)[number]["value"]>("shopify");
   const t = sectionTokens[tone];
   const inputClass = `mt-2 w-full rounded-[3px] border px-4 py-3 ${t.border} bg-transparent ${t.text}`;
 
@@ -126,23 +132,23 @@ export default function Contact({ tone = "ink" }: ContactProps) {
                 />
               </div>
               <div className="sm:col-span-1">
-                <label htmlFor="plateforme" className="text-sm font-medium">
-                  Plateforme
-                </label>
-                <select
-                  id="plateforme"
-                  name="plateforme"
-                  required
-                  defaultValue=""
-                  className={inputClass}
-                >
-                  <option value="" disabled className="bg-ink">
-                    Choisir…
-                  </option>
-                  <option value="shopify" className="bg-ink">Shopify</option>
-                  <option value="prestashop" className="bg-ink">PrestaShop</option>
-                  <option value="autre" className="bg-ink">Autre</option>
-                </select>
+                <span className="text-sm font-medium">Plateforme</span>
+                <div className={`mt-2 inline-flex w-full overflow-hidden rounded-[3px] border ${t.border}`}>
+                  {plateformes.map((p, i) => (
+                    <button
+                      key={p.value}
+                      type="button"
+                      onClick={() => setPlateforme(p.value)}
+                      aria-pressed={plateforme === p.value}
+                      className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                        i > 0 ? `border-l ${t.border}` : ""
+                      } ${plateforme === p.value ? "bg-bronze/15 text-bronze" : ""}`}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+                <input type="hidden" name="plateforme" value={plateforme} />
               </div>
               <div className="sm:col-span-1">
                 <label htmlFor="commandesMensuelles" className="text-sm font-medium">
@@ -159,11 +165,11 @@ export default function Contact({ tone = "ink" }: ContactProps) {
               </div>
 
               <div className="sm:col-span-2">
-                <CtaButton type="submit" disabled={status === "loading"} className="w-full sm:w-auto">
+                <CtaButton type="submit" tone={tone} disabled={status === "loading"} className="w-full sm:w-auto">
                   {status === "loading" ? "Envoi en cours…" : "Recevoir mon audit"}
                 </CtaButton>
                 {status === "error" && (
-                  <p className="mt-3 text-sm text-red-400">{errorMessage}</p>
+                  <p className="mt-3 text-sm text-red-600">{errorMessage}</p>
                 )}
               </div>
             </form>

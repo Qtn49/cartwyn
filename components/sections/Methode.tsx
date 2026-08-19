@@ -6,7 +6,7 @@ type MethodeProps = {
   tone?: SectionTone;
 };
 
-export default function Methode({ tone = "ink" }: MethodeProps) {
+export default function Methode({ tone = "creme" }: MethodeProps) {
   const t = sectionTokens[tone];
 
   return (

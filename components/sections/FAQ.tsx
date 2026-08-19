@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import FadeIn from "@/components/FadeIn";
-import { placesDisponibles } from "@/lib/pricing";
+import { pricingTiers } from "@/lib/pricing";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
+
+// Tous les paliers partagent le même nombre de places d'intégration prioritaire.
+const prioritySlotsPerTier = pricingTiers[0].prioritySlotsTotal;
 
 const faqs = [
   {
@@ -27,9 +30,10 @@ const faqs = [
       "Oui : hébergement en France/UE, conformité RGPD, et aucune donnée revendue ou partagée à des tiers en dehors des outils strictement nécessaires à l'envoi des relances.",
   },
   {
-    question: "Pourquoi seulement " + placesDisponibles.total + " places pilotes ?",
+    question:
+      "Pourquoi seulement " + prioritySlotsPerTier + " places d'intégration prioritaire par palier ?",
     answer:
-      "Parce que l'accompagnement est personnalisé : chaque installation est suivie par l'équipe Cartwyn. C'est une capacité réelle, pas un argument marketing.",
+      "Parce que l'accompagnement est personnalisé : chaque installation est suivie par l'équipe Cartwyn. C'est une capacité réelle, pas un argument marketing — une fois ces places prises, les nouveaux clients du palier sont simplement intégrés dans l'ordre d'arrivée.",
   },
   {
     question: "Pourquoi l'installation est-elle offerte ?",

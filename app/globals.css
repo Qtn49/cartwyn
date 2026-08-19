@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Direction luxe : encre profonde dominante, crème en respiration rare,
+/* Direction luxe : crème dominant, encre profonde en respiration rare,
    bronze comme unique accent (jamais en aplat de bouton). Voir CLAUDE.md. */
 :root {
   --color-ink: #12100d;
@@ -39,8 +39,8 @@ html {
 }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-creme);
+  background: var(--color-creme);
+  color: var(--color-ink);
   font-family: var(--font-body), sans-serif;
 }
 

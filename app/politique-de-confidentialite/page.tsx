@@ -15,13 +15,13 @@ export default function PolitiqueConfidentialite() {
         <h1 className="font-display text-3xl font-semibold sm:text-4xl">
           Politique de confidentialité
         </h1>
-        <p className="mt-4 text-sm text-creme/65">
+        <p className="mt-4 text-sm text-ink/65">
           Dernière mise à jour : [date à compléter]
         </p>
 
-        <div className="mt-10 space-y-8 text-creme/65 leading-relaxed">
+        <div className="mt-10 space-y-8 text-ink/65 leading-relaxed">
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Données collectées
             </h2>
             <p className="mt-2">
@@ -35,7 +35,7 @@ export default function PolitiqueConfidentialite() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Finalité du traitement
             </h2>
             <p className="mt-2">
@@ -46,7 +46,7 @@ export default function PolitiqueConfidentialite() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Durée de conservation
             </h2>
             {/* À compléter précisément selon la politique interne retenue. */}
@@ -60,7 +60,7 @@ export default function PolitiqueConfidentialite() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Cookies
             </h2>
             <p className="mt-2">
@@ -74,7 +74,7 @@ export default function PolitiqueConfidentialite() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Hébergement et transfert de données
             </h2>
             {/* À compléter avec le nom exact de l'hébergeur retenu. */}
@@ -86,7 +86,7 @@ export default function PolitiqueConfidentialite() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Vos droits
             </h2>
             <p className="mt-2">

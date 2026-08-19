@@ -28,10 +28,10 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-30 text-creme transition-all duration-300 ${
+      className={`sticky top-0 z-30 text-ink transition-all duration-300 ${
         scrolled
-          ? "border-b border-creme/10 bg-ink/95 shadow-sm shadow-black/20 backdrop-blur-md"
-          : "border-b border-transparent bg-ink/40 backdrop-blur-sm"
+          ? "border-b border-ink/10 bg-creme/95 shadow-sm shadow-black/5 backdrop-blur-md"
+          : "border-b border-transparent bg-creme/40 backdrop-blur-sm"
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
@@ -59,13 +59,13 @@ export default function Header() {
           onClick={() => setOpen((o) => !o)}
         >
           <span
-            className={`block h-0.5 w-6 bg-creme transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}
+            className={`block h-0.5 w-6 bg-ink transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}
           />
           <span
-            className={`block h-0.5 w-6 bg-creme transition-opacity ${open ? "opacity-0" : ""}`}
+            className={`block h-0.5 w-6 bg-ink transition-opacity ${open ? "opacity-0" : ""}`}
           />
           <span
-            className={`block h-0.5 w-6 bg-creme transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}
+            className={`block h-0.5 w-6 bg-ink transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}
           />
         </button>
       </div>
@@ -75,7 +75,7 @@ export default function Header() {
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          className="lg:hidden overflow-hidden border-t border-creme/10 bg-ink"
+          className="lg:hidden overflow-hidden border-t border-ink/10 bg-creme"
         >
           <div className="flex flex-col gap-1 px-5 py-4">
             {navLinks.map((link) => (
@@ -83,7 +83,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="label rounded-[3px] px-2 py-3 text-sm font-medium hover:bg-creme/5"
+                className="label rounded-[3px] px-2 py-3 text-sm font-medium hover:bg-ink/5"
               >
                 {link.label}
               </a>

@@ -10,31 +10,35 @@ import {
 } from "framer-motion";
 import FadeIn from "@/components/FadeIn";
 import Signature from "@/components/illustrations/Signature";
-import { placesDisponibles } from "@/lib/pricing";
+import { pricingTiers } from "@/lib/pricing";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
+
+// Tous les paliers partagent le même nombre de places d'intégration prioritaire.
+const prioritySlotsPerTier = pricingTiers[0].prioritySlotsTotal;
 
 const paragraphs = [
   <>
     Cartwyn est né d&apos;un constat simple : la plupart des e-commerçants
-    perdent chaque mois un chiffre d&apos;affaires qu&apos;ils ont déjà
-    généré — des clients qui ont rempli leur panier, puis sont partis sans
-    relance sérieuse pour les faire revenir.
+    perdent chaque mois <strong>un chiffre d&apos;affaires qu&apos;ils ont
+    déjà généré</strong> — des clients qui ont rempli leur panier, puis sont
+    partis <strong>sans relance sérieuse</strong> pour les faire revenir.
   </>,
   <>
     Notre approche reste volontairement transparente : la méthode de calcul
-    du CA récupéré est publique, mesurée par groupe témoin, et jamais
-    gonflée pour impressionner.
+    du CA récupéré est publique, <strong>mesurée par groupe témoin</strong>,
+    et <strong>jamais gonflée pour impressionner</strong>.
   </>,
   <>
-    L&apos;équipe Cartwyn suit personnellement chaque installation, de
-    l&apos;audit initial au premier rapport mensuel — l&apos;automatisation
-    fait le travail répétitif, l&apos;équipe garde le contrôle sur la
-    qualité.
+    L&apos;équipe Cartwyn <strong>suit personnellement chaque installation</strong>,
+    de l&apos;audit initial au premier rapport mensuel — l&apos;automatisation
+    fait le travail répétitif, <strong>l&apos;équipe garde le contrôle sur la
+    qualité</strong>.
   </>,
   <>
-    Cartwyn démarre volontairement petit : {placesDisponibles.total} places
-    pilotes, pour garantir un accompagnement de qualité plutôt que de viser
-    le volume dès le premier jour.
+    Cartwyn démarre volontairement petit :{" "}
+    <strong>{prioritySlotsPerTier} places d&apos;intégration prioritaire par palier tarifaire</strong>,
+    pour garantir <strong>un accompagnement de qualité</strong> plutôt que de
+    viser le volume dès le premier jour.
   </>,
 ];
 
@@ -42,7 +46,7 @@ type AProposProps = {
   tone?: SectionTone;
 };
 
-export default function APropos({ tone = "ink" }: AProposProps) {
+export default function APropos({ tone = "creme" }: AProposProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const t = sectionTokens[tone];

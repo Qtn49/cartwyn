@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { pricing } from "@/lib/pricing";
+import { pricing, pricingTiers, month1Offer } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Conditions générales de vente",
@@ -16,13 +16,13 @@ export default function CGV() {
         <h1 className="font-display text-3xl font-semibold sm:text-4xl">
           Conditions générales de vente
         </h1>
-        <p className="mt-4 text-sm text-creme/65">
+        <p className="mt-4 text-sm text-ink/65">
           Dernière mise à jour : [date à compléter]
         </p>
 
-        <div className="mt-10 space-y-8 text-creme/65 leading-relaxed">
+        <div className="mt-10 space-y-8 text-ink/65 leading-relaxed">
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Article 1 — Objet
             </h2>
             <p className="mt-2">
@@ -36,21 +36,27 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Article 2 — Prix
             </h2>
             <p className="mt-2">
               L&apos;installation est {pricing.installation.display.toLowerCase()}.
-              L&apos;abonnement mensuel est de {pricing.abonnement.display}.
-              {" "}
-              {pricing.abonnement.detail}. Les montants sont exprimés hors
+              L&apos;abonnement mensuel dépend du palier souscrit, selon le
+              volume de commandes mensuel de la boutique :{" "}
+              {pricingTiers
+                .map(
+                  (tier) =>
+                    `${tier.name} (${tier.ordersRange}) — ${tier.price}€/mois`
+                )
+                .join(" ; ")}
+              . {month1Offer.description} Les montants sont exprimés hors
               taxes le cas échéant, selon le statut juridique du prestataire
               [à préciser].
             </p>
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Article 3 — Modalités de paiement
             </h2>
             {/* À compléter : moyen de paiement, périodicité de facturation,
@@ -62,7 +68,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Article 4 — Garantie
             </h2>
             <p className="mt-2">
@@ -75,7 +81,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Article 5 — Résiliation
             </h2>
             {/* À compléter : préavis, modalités de résiliation. */}
@@ -86,7 +92,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Article 6 — Responsabilité
             </h2>
             <p className="mt-2">
@@ -99,7 +105,7 @@ export default function CGV() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl font-semibold text-creme">
+            <h2 className="font-display text-xl font-semibold text-ink">
               Article 7 — Droit applicable
             </h2>
             <p className="mt-2">

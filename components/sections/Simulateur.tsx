@@ -18,7 +18,7 @@ type SimulateurProps = {
   tone?: SectionTone;
 };
 
-export default function Simulateur({ tone = "ink" }: SimulateurProps) {
+export default function Simulateur({ tone = "creme-soft" }: SimulateurProps) {
   const [commandes, setCommandes] = useState(300);
   const [panierMoyen, setPanierMoyen] = useState(65);
   const shouldReduceMotion = useReducedMotion();
@@ -144,7 +144,7 @@ export default function Simulateur({ tone = "ink" }: SimulateurProps) {
         </p>
 
         <div className="mt-8 text-center">
-          <CtaButton href="#contact">Recevoir mon audit gratuit</CtaButton>
+          <CtaButton href="#contact" tone={tone}>Recevoir mon audit gratuit</CtaButton>
         </div>
       </div>
     </section>

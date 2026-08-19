@@ -8,6 +8,7 @@ import {
   useReducedMotion,
   useScroll,
 } from "framer-motion";
+import CtaButton from "@/components/CtaButton";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 const steps = [
@@ -32,7 +33,7 @@ type CommentCaMarcheProps = {
   tone?: SectionTone;
 };
 
-export default function CommentCaMarche({ tone = "ink-soft" }: CommentCaMarcheProps) {
+export default function CommentCaMarche({ tone = "creme-soft" }: CommentCaMarcheProps) {
   const shouldReduceMotion = useReducedMotion();
 
   if (shouldReduceMotion) {
@@ -70,6 +71,15 @@ function CommentCaMarcheStatic({ tone }: { tone: SectionTone }) {
             </div>
           ))}
         </div>
+
+        <motion.div
+          initial={false}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10% 0px" }}
+          className="mt-16 text-center"
+        >
+          <CtaButton href="#contact" tone={tone}>Recevoir mon audit gratuit</CtaButton>
+        </motion.div>
       </div>
     </section>
   );
@@ -134,6 +144,20 @@ function CommentCaMarchePinned({ tone }: { tone: SectionTone }) {
                 />
               ))}
             </div>
+
+            <AnimatePresence>
+              {active === steps.length - 1 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 16 }}
+                  transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+                  className="mt-10"
+                >
+                  <CtaButton href="#contact" tone={tone}>Recevoir mon audit gratuit</CtaButton>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <div className="relative mx-auto flex w-full max-w-sm items-center justify-center">
