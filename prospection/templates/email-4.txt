@@ -1,0 +1,7 @@
+{{salutation}}
+
+Je vais arrêter de te relancer sur le sujet — mon but c'est vraiment d'aider les commerçants comme toi, pas d'insister lourdement.
+
+Si ce n'est pas le bon moment, aucun souci. N'hésite pas à me recontacter quand tu seras disponible, je reste dispo : quentin@cartwyn.fr, ou juste en répondant ici.
+
+Bonne continuation avec {{store_name}} !

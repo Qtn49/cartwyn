@@ -1,0 +1,5 @@
+Un chiffre qui m'a marqué en creusant le sujet : selon Baymard Institute (référence dans l'e-commerce, une moyenne sur 50 études), environ 70% des paniers en ligne sont abandonnés avant le paiement.
+
+Ce qui compte vraiment, c'est la partie qu'on ne voit jamais : la raison précise pour laquelle chaque visiteur part — frais de livraison, doute sur un délai, simple hésitation. Une relance générique ne répond à aucune de ces raisons en particulier.
+
+Tu as une idée de ce que ça représente en ventes perdues pour {{store_name}} sur un mois normal ?

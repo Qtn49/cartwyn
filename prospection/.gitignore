@@ -1,0 +1,13 @@
+# Données de prospects réelles (RGPD) : listes brutes et nettoyées, jamais commitées.
+listes/
+
+# Identifiants du relais SMTP / IMAP / clé API Haiku pour prospection.
+.env*
+!.env.example
+
+# État d'avancement de la séquence, cache des accroches, logs d'envoi, liste
+# de suppression — tout contient des données personnelles de prospects.
+state/
+
+__pycache__/
+*.pyc

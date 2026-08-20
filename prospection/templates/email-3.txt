@@ -1,0 +1,5 @@
+Pour être concret sur comment ça marche : je mets en place des relances automatiques (email, SMS bientôt) sur les paniers abandonnés de {{store_name}}, avec une question simple qui aide à comprendre pourquoi la personne n'a pas terminé son achat — livraison trop chère, doute sur un délai, ou juste distraite. Chaque relance s'adapte à la réponse plutôt que d'envoyer le même mail à tout le monde.
+
+Le premier mois, il n'y a pas d'abonnement fixe : tu ne payes qu'une commission sur ce qui est réellement récupéré, plafonnée au prix normal de l'offre. Concrètement, tu ne peux jamais payer plus qu'un mois classique — et souvent moins si les résultats ne sont pas encore là.
+
+Tu veux que je te montre à quoi ça ressemblerait pour {{store_name}}, avec une estimation basée sur ton volume de commandes ?
