@@ -112,6 +112,20 @@ WARMUP_SCHEDULE = [
     (35, 50),
 ]
 
+# Plafond spécifique pour le tout premier lancement réel voulu par le
+# porteur du projet : mardi 25/08/2026. Nécessaire car `first_send_at`
+# (l'ancrage "jour 0" du palier ci-dessus) a déjà été fixé par erreur le
+# 20/08/2026 par les deux envois de l'incident de test (voir "Incident du
+# 20/08/2026" dans prospection/README.md) — sans cette dérogation
+# explicite, le calcul par décalage de jours placerait le 25/08 au palier
+# "jour 5" (12/jour) au lieu du plafond prudent de premier lancement
+# demandé (5-10/jour). Table {date ISO : plafond}, vérifiée avant toute
+# autre logique dans daily_cap_for(). Les jours suivants reprennent le
+# calcul normal par WARMUP_SCHEDULE (pas de dérogation au-delà du 25/08).
+LAUNCH_DAY_CAP_OVERRIDE = {
+    "2026-08-25": 8,
+}
+
 # --- Fenêtre d'envoi -------------------------------------------------------
 # N'envoyer réellement (--send) que sur ces jours/heures, heure de Paris —
 # jours/horaires jugés les plus lus pour du cold email B2B. Configurable ici,
@@ -382,6 +396,9 @@ def get_first_send_date(conn: sqlite3.Connection) -> datetime | None:
 
 
 def daily_cap_for(conn: sqlite3.Connection, today: datetime) -> int:
+    override = LAUNCH_DAY_CAP_OVERRIDE.get(today.date().isoformat())
+    if override is not None:
+        return override
     first_send = get_first_send_date(conn)
     if first_send is None:
         return WARMUP_SCHEDULE[0][1]
@@ -394,6 +411,11 @@ def daily_cap_for(conn: sqlite3.Connection, today: datetime) -> int:
 
 
 def sent_today_count(conn: sqlite3.Connection, today: datetime) -> int:
+    # Compte TOUS les envois du jour, quelle que soit l'étape (1 à 4) — le
+    # plafond de warmup porte sur le volume total sorti vers cartwyn.fr ce
+    # jour-là, pas seulement les nouveaux contacts (étape 1/J0). Aucun
+    # filtre sur `step` ici : c'est la preuve dans le code, pas une
+    # supposition (voir prospection/README.md).
     day_str = today.date().isoformat()
     row = conn.execute(
         "SELECT COUNT(*) AS n FROM send_log WHERE status = 'sent' AND substr(sent_at, 1, 10) = ?",

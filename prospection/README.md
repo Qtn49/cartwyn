@@ -252,6 +252,25 @@ de warmup vérifiées le 20/08/2026). Palier explicite et modifiable dans
 plainte, bounces, arrivée en spam) — ces chiffres sont un point de départ
 raisonnable, pas une garantie.
 
+**Le plafond compte tous les envois du jour, pas seulement les nouveaux
+contacts.** Vérifié dans le code, pas supposé : `sent_today_count()` dans
+`send_sequence.py` fait `SELECT COUNT(*) FROM send_log WHERE status =
+'sent' AND ...` sans filtre sur la colonne `step` — un email 2, 3 ou 4
+(relance d'un contact déjà en séquence) compte exactement comme un email 1
+(nouveau contact) dans le plafond quotidien. Pas de traitement à part pour
+les relances.
+
+**Dérogation pour le premier lancement réel (25/08/2026)** :
+`LAUNCH_DAY_CAP_OVERRIDE` fixe le plafond à 8/jour ce jour-là précisément,
+quel que soit le nombre de contacts éligibles en base — nécessaire parce
+que `first_send_at` (l'ancrage "jour 0" du tableau ci-dessus) a été fixé
+par erreur le 20/08/2026 par les deux envois de l'incident de test (voir
+plus bas), ce qui aurait sinon placé le 25/08 au palier "jour 5" (12/jour)
+au lieu d'un vrai départ prudent. Sans effet au-delà du 25/08 : les jours
+suivants reprennent le calcul normal par `WARMUP_SCHEDULE` (26/08 → 12/jour,
+30/08 → 18/jour, etc., anchoré sur le 20/08 — pas recalé sur le 25/08, un
+léger décalage assumé plutôt qu'une correction plus large non demandée).
+
 ### 4. Fenêtre d'envoi
 
 `run --send` n'envoie réellement que mardi, mercredi ou jeudi, entre
