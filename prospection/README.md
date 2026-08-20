@@ -378,6 +378,42 @@ progression des vraies séquences.
 **`--i-understand-this-sends-real-email` est obligatoire** (en plus de
 `--send` pour `run`) — voir la section incident ci-dessous pour pourquoi.
 
+## Déploiement et tests automatisés
+
+**Tests** (aucun risque réseau/données réelles, à lancer avant de toucher au
+code d'envoi) :
+```bash
+python3 prospection/scripts/tests/test_send_path_safety.py
+python3 prospection/scripts/tests/test_state_machine.py
+```
+
+**Sur le VPS de production** (`51.210.40.108`, voir CLAUDE.md) : le code de
+`prospection/` est déployé dans `~/cartwyn/prospection` (même dépôt Git que
+le site), avec son propre environnement virtuel Python
+(`prospection/scripts/venv/`, dépendances de `requirements.txt`) et son
+propre `prospection/.env` (copié par `scp`, jamais commité, permissions
+`600`). L'état de la séquence (`prospection/state/sequence.db`) y a été
+copié tel quel depuis la machine de développement au moment du déploiement
+initial (20/08/2026) pour continuer la même campagne, pas en repartir de
+zéro.
+
+**Tâche cron réelle**, confirmée active (`crontab -l`) :
+```
+0 * * * * cd /home/ubuntu/cartwyn/prospection/scripts && /bin/bash -c 'set -a; source ../.env; set +a; ./venv/bin/python3 send_sequence.py run --send --i-understand-this-sends-real-email' >> /home/ubuntu/cartwyn/prospection/state/cron.log 2>&1
+```
+Se déclenche toutes les heures ; c'est la fenêtre d'envoi (mar/mer/jeu,
+9h30-11h ou 14h-15h heure de Paris) et le palier de warmup qui décident si
+un envoi part réellement à ce moment-là — la plupart des déclenchements ne
+font donc rien, c'est le fonctionnement attendu. Sortie (y compris les
+éventuelles erreurs) redirigée vers `prospection/state/cron.log`, à
+consulter en cas de doute plutôt que de supposer que ça tourne bien.
+
+Pour mettre à jour le code sur le VPS après un futur changement : `git pull`
+dans `~/cartwyn`, puis `./venv/bin/pip install -r
+prospection/scripts/requirements.txt` si les dépendances ont changé — le
+cron n'a pas besoin d'être relancé, il repart tout seul à l'heure suivante
+avec le code à jour.
+
 ## Incident du 20/08/2026 : deux emails réels envoyés par erreur pendant un test
 
 **Ce qui s'est passé.** En testant la logique de fenêtre d'envoi (section
