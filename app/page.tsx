@@ -14,16 +14,27 @@ import APropos from "@/components/sections/APropos";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import { siteUrl } from "@/lib/site";
+import { founderName, founderBio } from "@/lib/founder";
 
 // Schema.org Organization : utile pour la recherche de marque (nom, logo,
 // URL dans les résultats Google), pas un balisage FAQPage — Google a
 // supprimé les FAQ rich results en mai 2026, pas la peine d'y investir.
+// `founder` référence le Person ci-dessous : signal d'autorité E-E-A-T,
+// jamais affiché visuellement (CLAUDE.md, règle 2).
+const founderJsonLd = {
+  "@type": "Person",
+  name: founderName,
+  jobTitle: "Fondateur",
+  description: founderBio,
+};
+
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Cartwyn",
   url: siteUrl,
   logo: `${siteUrl}/icon.png`,
+  founder: founderJsonLd,
 };
 
 export default function Home() {

@@ -19,15 +19,15 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Cartwyn — Récupérez le CA de vos paniers abandonnés",
+    default: "Cartwyn — Relance des paniers abandonnés pour e-commerçants",
     template: "%s — Cartwyn",
   },
   description:
-    "Cartwyn installe et gère pour votre boutique Shopify ou PrestaShop un système de relance automatique des paniers abandonnés, avec qualification du frein d'achat et reporting mensuel du CA réellement récupéré.",
+    "Cartwyn relance automatiquement vos paniers abandonnés (Shopify, PrestaShop) et vous reporte chaque mois le CA réellement récupéré.",
   openGraph: {
-    title: "Cartwyn — Récupérez le CA de vos paniers abandonnés",
+    title: "Cartwyn — Relance des paniers abandonnés pour e-commerçants",
     description:
-      "Relance automatique des paniers abandonnés, qualification des freins d'achat et reporting mensuel du CA récupéré, pour e-commerçants français.",
+      "Relance automatique des paniers abandonnés, qualification des freins d'achat pour mieux fidéliser vos clients, et reporting mensuel du CA récupéré.",
     url: siteUrl,
     siteName: "Cartwyn",
     locale: "fr_FR",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cartwyn — Récupérez le CA de vos paniers abandonnés",
+    title: "Cartwyn — Relance des paniers abandonnés pour e-commerçants",
     description:
       "Relance automatique des paniers abandonnés, qualification des freins d'achat et reporting mensuel du CA récupéré.",
   },

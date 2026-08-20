@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
   description: "Mentions légales du site Cartwyn.",
+  alternates: {
+    canonical: `${siteUrl}/mentions-legales`,
+  },
 };
 
 export default function MentionsLegales() {

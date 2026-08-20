@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { pricing, pricingTiers, month1Offer } from "@/lib/pricing";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Conditions générales de vente",
   description: "Conditions générales de vente du service Cartwyn.",
+  alternates: {
+    canonical: `${siteUrl}/cgv`,
+  },
 };
 
 export default function CGV() {

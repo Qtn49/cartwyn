@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
   description: "Politique de confidentialité et protection des données du site Cartwyn.",
+  alternates: {
+    canonical: `${siteUrl}/politique-de-confidentialite`,
+  },
 };
 
 export default function PolitiqueConfidentialite() {

@@ -53,7 +53,7 @@ L'ordre des sections sur la page d'accueil suit une logique psychologique préci
 
 1. **Jamais "IA" ou "agent IA" en avant.** Aucun titre, sous-titre ou argument principal ne met en avant la technologie. On vend un résultat (CA récupéré) et une marque, pas une prouesse technique.
 
-2. **Pas de storytelling personnel ni de photo de fondateur.** Cartwyn se présente comme une marque, pas comme une personne. La section "à propos" reste institutionnelle (méthode, transparence, accompagnement) — ne jamais y ajouter de photo, de prénom ou de biographie individuelle.
+2. **Pas de storytelling personnel ni de photo de fondateur.** Cartwyn se présente comme une marque, pas comme une personne. La section "à propos" reste institutionnelle (méthode, transparence, accompagnement) — ne jamais y ajouter de photo, de prénom ou de biographie individuelle visible sur la page. Exception limitée : une donnée structurée (JSON-LD `Person`, invisible à l'écran) identifiant le fondateur peut exister pour le signal d'autorité SEO/IA (voir section SEO et référencement IA) — ça ne déroge pas à cette règle tant que rien de personnel n'apparaît visuellement sur le site.
 
 3. **Zéro fausse preuve sociale.** Pas de témoignage inventé, pas de logo client fictif, pas de chiffre de résultat qui ne provient pas d'un vrai client Cartwyn. Tant qu'il n'y a pas de client réel, ne pas ajouter de section "ils nous font confiance".
 
@@ -100,13 +100,31 @@ L'ordre des sections sur la page d'accueil suit une logique psychologique préci
 
 15. **Case de consentement RGPD sur le formulaire de contact**, distincte du bandeau cookies — non cochée par défaut, obligatoire pour soumettre.
 
-16. **Fondations SEO techniques toujours à jour** : sitemap.xml, robots.txt, meta title/description par page, schema.org Organization en JSON-LD, Open Graph/Twitter Card, favicon complet, page 404 personnalisée. Ne pas investir dans un balisage FAQPage schema.org — Google a supprimé les rich results FAQ en mai 2026, ça n'a plus d'effet SEO visible.
+16. **Fondations SEO techniques toujours à jour** : sitemap.xml, robots.txt (avec autorisation explicite des crawlers IA, voir section SEO et référencement IA), meta title/description par page, schema.org `Organization` en JSON-LD, Open Graph/Twitter Card, favicon complet, page 404 personnalisée. Ne pas investir dans un balisage FAQPage schema.org — Google a supprimé les rich results FAQ en mai 2026, ça n'a plus d'effet SEO visible ; le contenu FAQ reste en revanche une section visible normale de la page (bon format pour l'extraction par les moteurs IA, indépendamment du balisage).
 
 17. **Jamais de secret commité.** `.env.production`, tout token/clé API, et la clé privée SSH du serveur ne doivent jamais apparaître dans un commit, un fichier suivi par Git, une capture d'écran ou une sortie de log — `.env*` (sauf `.env.example`) doit rester dans `.gitignore`.
 
 18. **Chatbot (Claude Haiku) strictement scopé à Cartwyn.** Le widget ne se présente jamais comme une "IA" ou un "assistant IA" dans son UI (cohérent avec la règle 1) — juste "Une question ?". Le system prompt est reconstruit à chaque requête à partir de `lib/pricing.ts` et des faits réels du service, jamais de chiffres dupliqués en dur qui pourraient diverger. En cas de question hors-sujet ou d'incertitude, il redirige systématiquement vers `contact@cartwyn.fr` — jamais de refus sec ("je n'ai pas le droit d'en parler"). Contrôle de coût obligatoire : `max_tokens` plafonné, historique de conversation tronqué, rate-limiting par IP. La clé `ANTHROPIC_API_KEY` ne vit que côté serveur (`.env.production`), jamais exposée au client. Le widget ne s'active qu'après consentement à la catégorie "Chat" du bandeau cookies (règle 8) ; aucune conversation n'est journalisée au-delà du traitement de la requête en cours.
 
 19. **Prospection (cold email) : confidentialité et anti-dérive non négociables.** Les listes de prospects (`prospection/listes/`, y compris les fichiers générés dans `clean/`), les logs d'envoi et la liste de suppression contiennent des données personnelles (noms, emails) — jamais commitées dans Git, qu'il s'agisse des exports bruts ou des fichiers dérivés (`.gitignore` dédié dans `prospection/`). Aucun envoi réel sans : lien/mention de désabonnement + header `List-Unsubscribe`, montée en charge progressive (warmup) prudente, et vérification préalable que SPF/DKIM/DMARC résolvent. **Le cold email part depuis `cartwyn.fr` — décision finale prise le 20/08/2026 après avoir évalué et écarté un domaine satellite (`cartwyn.online`, abandonné à cause d'une pénalité structurelle de son TLD sur les filtres anti-spam) ; ne pas rouvrir ce débat sans qu'il soit explicitement redemandé.** En contrepartie du choix de `cartwyn.fr`, `send_sequence.py` doit toujours : vérifier qu'aucun enregistrement DNS existant du site n'est dupliqué/cassé par l'ajout de Resend (voir section Prospection), faire tourner un circuit-breaker automatique sur le taux de bounce/plaintes, et vérifier l'absence de `cartwyn.fr` sur Spamhaus DBL avant chaque batch réel. Le script d'envoi tourne toujours en mode aperçu par défaut (génère sans envoyer) ; l'envoi réel est un flag explicite, jamais le comportement par défaut.
+
+## SEO et référencement IA (GEO)
+
+Mots-clés cibles validés (pour meta title/description, intertitres, contenu on-page) : `abandon panier ecommerce`, `meilleur outil relance panier abandonné`, `augmenter taux de conversion ecommerce`, `fidéliser client ecommerce`. Les mapper aux sections les plus pertinentes existantes plutôt que de forcer du nouveau contenu — pas de sur-optimisation/bourrage de mots-clés.
+
+**Ce qui a un impact réel confirmé pour l'IA générative (ChatGPT, Perplexity, AI Overviews)** : structurer le contenu pour l'extraction (intertitres formulés comme de vraies questions, réponse directe en 40-60 mots en tête de section, paragraphes courts), section FAQ visible avec réponses directes, chiffres/statistiques sourcés mis en avant (déjà couvert par la règle 4 — zéro chiffre inventé). Autoriser explicitement les crawlers IA dans `robots.txt` : `GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`, `Applebot-Extended` — sans ça le site n'est simplement pas éligible à être cité. S'assurer que le contenu critique (hero, douleur, chiffres clés) est bien rendu côté serveur (SSR/SSG Next.js), pas seulement injecté en JS client, que certains crawlers IA ne rendent pas bien.
+
+**Ce qui est contesté / à ne pas sur-investir** : le balisage schema.org (au-delà d'`Organization`) et les fichiers `llms.txt` n'ont pas d'effet mesurable confirmé sur les citations IA selon la documentation Google la plus récente (voir règle 16) — les implémenter reste peu coûteux pour le SEO classique, mais ne pas les présenter comme le levier principal.
+
+**Signal d'autorité fondateur (E-E-A-T)** : une bio fondateur existe pour un usage en donnée structurée (`Person` JSON-LD, potentiellement réutilisable comme signature d'article le jour où le blog est lancé) — jamais affichée visuellement sur les pages actuelles du site, conformément à la règle 2.
+
+> Quentin Guez est ingénieur informatique de formation. Développeur avant tout, il conçoit et construit lui-même les outils qu'il lance — de projets techniques personnels à Cartwyn, qu'il a fondé pour mettre cette expertise au service d'un problème très concret : chaque mois, les e-commerçants perdent des ventes déjà à moitié conclues, faute d'un suivi rigoureux des paniers abandonnés. Son approche : une exigence technique réelle au service d'un résultat mesurable, pas un argumentaire marketing.
+
+Version courte (meta/description schema) : "Ingénieur informatique, développeur full-stack, fondateur de Cartwyn — il construit lui-même chaque brique technique du service qu'il propose aux e-commerçants."
+
+**Mesure** : vérifier dans Plausible (onglet Sources) que les référents `chatgpt.com`, `perplexity.ai`, `claude.ai`, `gemini.google.com`, `bing.com` remontent bien — pas de développement spécifique nécessaire, juste une vérification et une habitude de suivi mensuel.
+
+**Fraîcheur** : contenu marketing statique, pas de blog actif pour l'instant (différé aux premiers clients pilotes) — pas de mécanisme de fraîcheur à construire maintenant, à reconsidérer au lancement du blog.
 
 ## Conventions de code
 
