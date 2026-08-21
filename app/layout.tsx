@@ -4,6 +4,7 @@ import "./globals.css";
 import CookieConsent from "@/components/CookieConsent";
 import ChatBubble from "@/components/ChatBubble";
 import AnalyticsScript from "@/components/AnalyticsScript";
+import MotionProvider from "@/components/MotionProvider";
 import { siteUrl } from "@/lib/site";
 
 const fraunces = Fraunces({
@@ -57,9 +58,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${fraunces.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-creme text-ink font-body">
-        {children}
-        <CookieConsent />
-        <ChatBubble />
+        <MotionProvider>
+          {children}
+          <CookieConsent />
+          <ChatBubble />
+        </MotionProvider>
         <AnalyticsScript />
       </body>
     </html>

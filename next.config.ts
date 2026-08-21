@@ -11,12 +11,16 @@ import type { NextConfig } from "next";
 // entièrement l'hydratation React (page blanche). Risque réel limité ici :
 // aucun dangerouslySetInnerHTML sur de la donnée utilisateur dans tout le
 // site (uniquement du JSON-LD généré depuis des constantes internes).
+// PLAUSIBLE_HOST doit aussi être dans script-src (pas seulement
+// connect-src) : c'est un <script src="..."> chargé depuis cette origine,
+// pas juste un appel fetch/XHR — sans ça le script d'analytics est bloqué
+// par la CSP (régression découverte pendant la vérification de ce round).
 const PLAUSIBLE_HOST =
   process.env.NEXT_PUBLIC_PLAUSIBLE_HOST || "https://plausible.io";
 
 const csp = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline';
+  script-src 'self' 'unsafe-inline' ${PLAUSIBLE_HOST};
   style-src 'self' 'unsafe-inline';
   img-src 'self' data:;
   font-src 'self';

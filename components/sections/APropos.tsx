@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import {
-  motion,
+  m,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -75,7 +75,7 @@ export default function APropos({ tone = "creme" }: AProposProps) {
 
         <div className={`mt-8 space-y-5 text-lg leading-relaxed ${t.textSoft}`}>
           {paragraphs.map((paragraph, i) => (
-            <motion.p
+            <m.p
               key={i}
               initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +83,7 @@ export default function APropos({ tone = "creme" }: AProposProps) {
               transition={{ duration: 0.5, ease: "easeOut", delay: i * 0.12 }}
             >
               {paragraph}
-            </motion.p>
+            </m.p>
           ))}
         </div>
       </div>

@@ -1,20 +1,29 @@
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/components/sections/Hero";
-import Douleur from "@/components/sections/Douleur";
-import ChiffresCles from "@/components/sections/ChiffresCles";
-import Simulateur from "@/components/sections/Simulateur";
-import Expertise from "@/components/sections/Expertise";
-import PrixBrut from "@/components/sections/PrixBrut";
-import CeQuiEstInclus from "@/components/sections/CeQuiEstInclus";
-import Tarifs from "@/components/sections/Tarifs";
-import Methode from "@/components/sections/Methode";
-import CommentCaMarche from "@/components/sections/CommentCaMarche";
-import APropos from "@/components/sections/APropos";
-import FAQ from "@/components/sections/FAQ";
-import Contact from "@/components/sections/Contact";
 import { siteUrl } from "@/lib/site";
 import { founderName, founderBio } from "@/lib/founder";
+
+// Code-splitting des sections sous la ligne de flottaison : chaque import()
+// devient son propre chunk JS, chargé après le bundle initial. `ssr` reste
+// à sa valeur par défaut (true) partout ci-dessous — jamais `ssr: false` —
+// donc le texte de chaque section est toujours rendu côté serveur, présent
+// dans le HTML brut avec ou sans JS. Seul le chargement du JS (animations,
+// interactivité) est différé, pas le contenu. Hero reste en import statique
+// : c'est la seule section garantie au-dessus de la ligne de flottaison.
+const Douleur = dynamic(() => import("@/components/sections/Douleur"));
+const ChiffresCles = dynamic(() => import("@/components/sections/ChiffresCles"));
+const Simulateur = dynamic(() => import("@/components/sections/Simulateur"));
+const Expertise = dynamic(() => import("@/components/sections/Expertise"));
+const PrixBrut = dynamic(() => import("@/components/sections/PrixBrut"));
+const CeQuiEstInclus = dynamic(() => import("@/components/sections/CeQuiEstInclus"));
+const Tarifs = dynamic(() => import("@/components/sections/Tarifs"));
+const Methode = dynamic(() => import("@/components/sections/Methode"));
+const CommentCaMarche = dynamic(() => import("@/components/sections/CommentCaMarche"));
+const APropos = dynamic(() => import("@/components/sections/APropos"));
+const FAQ = dynamic(() => import("@/components/sections/FAQ"));
+const Contact = dynamic(() => import("@/components/sections/Contact"));
 
 // Schema.org Organization : utile pour la recherche de marque (nom, logo,
 // URL dans les résultats Google), pas un balisage FAQPage — Google a

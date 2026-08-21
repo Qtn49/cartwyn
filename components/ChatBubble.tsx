@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { useConsent } from "@/lib/useConsent";
 import { trackEvent } from "@/lib/analytics";
 
@@ -86,7 +86,7 @@ export default function ChatBubble() {
   return (
     <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
       {open && (
-        <motion.div
+        <m.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex w-[min(22rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-[3px] border border-creme/15 bg-ink text-creme shadow-xl shadow-black/30"
@@ -184,7 +184,7 @@ export default function ChatBubble() {
               </div>
             </>
           )}
-        </motion.div>
+        </m.div>
       )}
       <button
         onClick={() => setOpen((o) => !o)}

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 type DouleurProps = {
@@ -16,7 +16,7 @@ export default function Douleur({ tone = "creme" }: DouleurProps) {
   return (
     <section id="constat" className={`${t.bg} ${t.text}`}>
       <div className="mx-auto max-w-3xl px-5 py-24 text-center sm:px-8 lg:py-40">
-        <motion.p
+        <m.p
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-15% 0px" }}
@@ -24,8 +24,8 @@ export default function Douleur({ tone = "creme" }: DouleurProps) {
           className="label text-sm font-medium text-bronze"
         >
           Le constat
-        </motion.p>
-        <motion.h2
+        </m.p>
+        <m.h2
           initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-15% 0px" }}
@@ -34,8 +34,8 @@ export default function Douleur({ tone = "creme" }: DouleurProps) {
         >
           Sur 100 visiteurs qui ajoutent un article au panier,{" "}
           <span className="text-bronze">70 repartent sans payer</span>.
-        </motion.h2>
-        <motion.p
+        </m.h2>
+        <m.p
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-15% 0px" }}
@@ -44,7 +44,7 @@ export default function Douleur({ tone = "creme" }: DouleurProps) {
         >
           Ce n&apos;est pas une hypothèse. C&apos;est ce qui se passe sur
           votre boutique en ce moment — pendant que vous lisez cette phrase.
-        </motion.p>
+        </m.p>
       </div>
     </section>
   );

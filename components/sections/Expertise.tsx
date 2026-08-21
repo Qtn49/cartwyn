@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
 
 const items = [
@@ -66,7 +66,7 @@ export default function Expertise({ tone = "creme" }: ExpertiseProps) {
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item, i) => (
-            <motion.div
+            <m.div
               key={item.title}
               initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -94,7 +94,7 @@ export default function Expertise({ tone = "creme" }: ExpertiseProps) {
               <p className={`mt-2 text-sm leading-relaxed ${t.textSoft}`}>
                 {item.description}
               </p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

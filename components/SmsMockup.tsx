@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { smsConversation, type Leaf } from "@/components/smsConversationData";
 import { trackEvent } from "@/lib/analytics";
 
@@ -65,7 +65,7 @@ export default function SmsMockup({ className = "" }: SmsMockupProps) {
   }, [turns.length, shouldReduceMotion]);
 
   return (
-    <motion.div
+    <m.div
       initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: "easeOut", delay: 0.35 }}
@@ -84,7 +84,7 @@ export default function SmsMockup({ className = "" }: SmsMockupProps) {
       <div ref={scrollRef} className="no-scrollbar flex h-[360px] flex-col gap-3 overflow-y-auto px-5 py-5">
         <AnimatePresence initial={false}>
           {turns.map((turn, i) => (
-            <motion.div
+            <m.div
               key={i}
               initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -110,12 +110,12 @@ export default function SmsMockup({ className = "" }: SmsMockupProps) {
                   {turn.from === "client" && i === turns.length - 1 ? " · Envoyé" : ""}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </AnimatePresence>
 
         {leaf && (
-          <motion.div
+          <m.div
             initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.15 }}
@@ -127,7 +127,7 @@ export default function SmsMockup({ className = "" }: SmsMockupProps) {
             <p className="mt-1.5 text-xs leading-relaxed text-ink/70">
               {leaf.outcome.qualification}
             </p>
-          </motion.div>
+          </m.div>
         )}
       </div>
 
@@ -156,6 +156,6 @@ export default function SmsMockup({ className = "" }: SmsMockupProps) {
           </button>
         )}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

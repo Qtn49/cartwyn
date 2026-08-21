@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import CtaButton from "@/components/CtaButton";
 import { trackEvent } from "@/lib/analytics";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
@@ -40,7 +40,7 @@ export default function CeQuiEstInclus({ tone = "creme-soft" }: CeQuiEstInclusPr
 
         <ul className="mt-14 grid gap-x-8 gap-y-5 sm:grid-cols-2">
           {items.map((item, i) => (
-            <motion.li
+            <m.li
               key={item}
               initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -63,7 +63,7 @@ export default function CeQuiEstInclus({ tone = "creme-soft" }: CeQuiEstInclusPr
                 />
               </svg>
               <span className="leading-relaxed">{item}</span>
-            </motion.li>
+            </m.li>
           ))}
         </ul>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import CtaButton from "@/components/CtaButton";
 import { ConsentCategories, writeConsent } from "@/lib/consent";
 import { useConsent } from "@/lib/useConsent";
@@ -31,7 +31,7 @@ export default function CookieConsent() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <m.div
           role="dialog"
           aria-label="Gestion des cookies"
           aria-modal="false"
@@ -53,7 +53,7 @@ export default function CookieConsent() {
 
             <AnimatePresence>
               {showDetails && (
-                <motion.div
+                <m.div
                   initial={shouldReduceMotion ? { opacity: 1 } : { height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
@@ -110,7 +110,7 @@ export default function CookieConsent() {
                       </label>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
 
@@ -147,7 +147,7 @@ export default function CookieConsent() {
               )}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

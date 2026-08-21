@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import CtaButton from "@/components/CtaButton";
 import { trackEvent } from "@/lib/analytics";
 
@@ -79,7 +79,7 @@ export default function Header() {
       </div>
 
       {open && (
-        <motion.nav
+        <m.nav
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
@@ -107,7 +107,7 @@ export default function Header() {
               Recevoir mon audit gratuit
             </CtaButton>
           </div>
-        </motion.nav>
+        </m.nav>
       )}
     </header>
   );

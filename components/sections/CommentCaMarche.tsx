@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import {
   AnimatePresence,
-  motion,
+  m,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
@@ -60,7 +60,10 @@ function CommentCaMarcheStatic({ tone }: { tone: SectionTone }) {
         <div className="mt-16 grid gap-12 sm:grid-cols-3">
           {steps.map((step, i) => (
             <div key={step.title}>
-              <p className="font-display text-4xl font-semibold text-bronze/40">
+              {/* text-ink/60 plutôt que text-bronze/40 : à cette opacité, le
+                  bronze ne passe pas 4.5:1 sur fond crème (mesuré à 1.7:1),
+                  ink/60 atteint 4.72:1 en restant visuellement discret. */}
+              <p className="font-display text-4xl font-semibold text-ink/60">
                 {String(i + 1).padStart(2, "0")}
               </p>
               <h3 className="mt-3 font-display text-xl font-semibold">
@@ -73,7 +76,7 @@ function CommentCaMarcheStatic({ tone }: { tone: SectionTone }) {
           ))}
         </div>
 
-        <motion.div
+        <m.div
           initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10% 0px" }}
@@ -86,7 +89,7 @@ function CommentCaMarcheStatic({ tone }: { tone: SectionTone }) {
           >
             Recevoir mon audit gratuit
           </CtaButton>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
@@ -120,26 +123,36 @@ function CommentCaMarchePinned({ tone }: { tone: SectionTone }) {
             <p className="label text-sm font-medium text-bronze">
               Comment ça marche
             </p>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="mt-5"
-              >
-                <p className="label text-sm font-medium text-bronze">
-                  Étape {active + 1} / {steps.length}
-                </p>
-                <h3 className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">
-                  {steps[active].title}
-                </h3>
-                <p className={`mt-4 max-w-md text-lg leading-relaxed ${t.textSoft}`}>
-                  {steps[active].description}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+            {/* Les 3 étapes restent toutes montées (empilées via CSS grid,
+                une seule cellule) plutôt que démontées/remontées par
+                AnimatePresence — comme pour la FAQ, le texte des 3 étapes
+                doit rester dans le HTML servi, pas seulement celle active. */}
+            <div className="relative mt-5 grid">
+              {steps.map((step, i) => (
+                <m.div
+                  key={step.title}
+                  aria-hidden={i !== active}
+                  style={{ gridArea: "1 / 1" }}
+                  initial={{ opacity: i === 0 ? 1 : 0, y: i === 0 ? 0 : 16 }}
+                  animate={{
+                    opacity: i === active ? 1 : 0,
+                    y: i === active ? 0 : i < active ? -16 : 16,
+                  }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className={i === active ? "" : "pointer-events-none"}
+                >
+                  <p className="label text-sm font-medium text-bronze">
+                    Étape {i + 1} / {steps.length}
+                  </p>
+                  <h3 className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">
+                    {step.title}
+                  </h3>
+                  <p className={`mt-4 max-w-md text-lg leading-relaxed ${t.textSoft}`}>
+                    {step.description}
+                  </p>
+                </m.div>
+              ))}
+            </div>
 
             <div className="mt-10 flex gap-2">
               {steps.map((step, i) => (
@@ -154,7 +167,7 @@ function CommentCaMarchePinned({ tone }: { tone: SectionTone }) {
 
             <AnimatePresence>
               {active === steps.length - 1 && (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 16 }}
@@ -168,23 +181,27 @@ function CommentCaMarchePinned({ tone }: { tone: SectionTone }) {
           >
             Recevoir mon audit gratuit
           </CtaButton>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>
 
           <div className="relative mx-auto flex w-full max-w-sm items-center justify-center">
+            {/* Décoratif et redondant avec "Étape X / 3" ci-contre (déjà
+                accessible et SSR sur les 3 étapes) — aria-hidden, pas besoin
+                d'être toutes montées comme le bloc de texte. */}
             <AnimatePresence mode="wait">
-              <motion.p
+              <m.p
                 key={active}
+                aria-hidden="true"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -24 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="font-display text-[140px] font-semibold leading-none text-bronze/25 sm:text-[200px]"
+                className="font-display text-[140px] font-semibold leading-none text-ink/60 sm:text-[200px]"
               >
                 {String(active + 1).padStart(2, "0")}
-              </motion.p>
+              </m.p>
             </AnimatePresence>
           </div>
         </div>

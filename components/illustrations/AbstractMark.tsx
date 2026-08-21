@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 type AbstractMarkProps = {
   className?: string;
@@ -19,7 +19,7 @@ export default function AbstractMark({ className }: AbstractMarkProps) {
       role="img"
       aria-hidden="true"
     >
-      <motion.line
+      <m.line
         x1="100"
         y1="16"
         x2="100"
@@ -30,7 +30,7 @@ export default function AbstractMark({ className }: AbstractMarkProps) {
         animate={{ pathLength: 1, opacity: 1 }}
         transition={{ duration: 1.4, ease: "easeOut" }}
       />
-      <motion.line
+      <m.line
         x1="58"
         y1="160"
         x2="142"
@@ -41,7 +41,7 @@ export default function AbstractMark({ className }: AbstractMarkProps) {
         animate={{ pathLength: 1, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 1.1 }}
       />
-      <motion.circle
+      <m.circle
         cx="100"
         cy="160"
         r="2.5"

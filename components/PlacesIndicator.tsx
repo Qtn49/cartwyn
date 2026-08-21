@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import type { SectionTone } from "@/components/section-variant";
 
 type PlacesIndicatorProps = {
@@ -27,7 +27,7 @@ export default function PlacesIndicator({
       {Array.from({ length: total }, (_, i) => {
         const isPrise = i < prises;
         return (
-          <motion.span
+          <m.span
             key={i}
             className={`h-2.5 w-2.5 rounded-full ${
               isPrise ? "bg-bronze" : `border ${outlineColor}`

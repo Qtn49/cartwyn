@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import CountUp from "@/components/CountUp";
 import { stats, type Stat } from "@/lib/stats";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
@@ -37,7 +37,7 @@ function StatItem({ stat, index }: { stat: Stat; index: number }) {
   const decimals = Number.isInteger(stat.value) ? 0 : 2;
 
   return (
-    <motion.li
+    <m.li
       initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-15% 0px" }}
@@ -53,6 +53,6 @@ function StatItem({ stat, index }: { stat: Stat; index: number }) {
       </p>
       <p className="mt-3 leading-relaxed">{stat.label}</p>
       <p className="mt-2 text-xs opacity-70">Source : {stat.source}</p>
-    </motion.li>
+    </m.li>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import AbstractMark from "@/components/illustrations/AbstractMark";
 import SmsMockup from "@/components/SmsMockup";
 import CtaButton from "@/components/CtaButton";
@@ -24,7 +24,7 @@ export default function Hero({ tone = "creme" }: HeroProps) {
   return (
     <section className={`relative overflow-hidden px-5 pt-24 pb-24 sm:px-8 sm:pt-32 sm:pb-32 ${t.bg} ${t.text}`}>
       <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <motion.div
+        <m.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
@@ -60,7 +60,7 @@ export default function Hero({ tone = "creme" }: HeroProps) {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </m.div>
 
         <div className="mx-auto w-full max-w-sm">
           <SmsMockup />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
+import { animate, m, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
 import CtaButton from "@/components/CtaButton";
 import { simulateur } from "@/lib/pricing";
 import { trackEvent } from "@/lib/analytics";
@@ -130,14 +130,14 @@ export default function Simulateur({ tone = "creme-soft" }: SimulateurProps) {
 
           <div className="flex flex-col items-center justify-center gap-10">
             <div className={`h-px w-full max-w-xs ${t.line}`}>
-              <motion.div
+              <m.div
                 className="h-px bg-bronze"
                 style={{ scaleX: gaugeScaleX, transformOrigin: "left" }}
               />
             </div>
             <div className="text-center">
               <p className={`text-sm ${t.textSoft}`}>CA récupérable estimé / mois</p>
-              <motion.p
+              <m.p
                 key={Math.round(caRecuperable)}
                 style={{ scale: shouldReduceMotion ? 1 : numberScale }}
                 initial={shouldReduceMotion ? false : { opacity: 0.5 }}
@@ -146,7 +146,7 @@ export default function Simulateur({ tone = "creme-soft" }: SimulateurProps) {
                 className="mt-1 font-display text-4xl font-semibold text-bronze sm:text-5xl"
               >
                 {currencyFormatter.format(caRecuperable)}
-              </motion.p>
+              </m.p>
             </div>
           </div>
         </div>
