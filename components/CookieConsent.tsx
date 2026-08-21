@@ -39,15 +39,16 @@ export default function CookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={shouldReduceMotion ? { opacity: 0 } : { y: 80, opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="fixed inset-x-0 bottom-0 z-50 p-4 sm:p-6"
+          className="fixed inset-x-0 bottom-0 z-50 p-3 sm:p-6"
         >
-          <div className="mx-auto max-w-3xl rounded-[3px] border border-creme/15 bg-ink text-creme shadow-xl shadow-black/30 p-5 sm:p-6">
-            <p className="text-sm sm:text-base leading-relaxed">
-              Nous utilisons des cookies essentiels au fonctionnement du site.
-              Avec votre accord, nous utilisons aussi des cookies de mesure
-              d&apos;audience et de chat pour améliorer votre expérience.
-              Vous pouvez accepter, refuser ou personnaliser ce choix à tout
-              moment.
+          <div className="mx-auto max-w-3xl rounded-[3px] border border-creme/15 bg-ink text-creme shadow-xl shadow-black/30 p-4 sm:p-6">
+            <p className="text-xs leading-snug sm:text-base sm:leading-relaxed">
+              Cookies essentiels toujours actifs. Avec votre accord, aussi
+              mesure d&apos;audience et chat.{" "}
+              <span className="hidden sm:inline">
+                Vous pouvez accepter, refuser ou personnaliser ce choix à tout
+                moment.
+              </span>
             </p>
 
             <AnimatePresence>
@@ -77,15 +78,17 @@ export default function CookieConsent() {
                           Statistiques anonymes de fréquentation.
                         </p>
                       </div>
-                      <input
-                        type="checkbox"
-                        checked={categories.analytics}
-                        onChange={(e) =>
-                          setCategories((c) => ({ ...c, analytics: e.target.checked }))
-                        }
-                        className="h-5 w-5 accent-bronze"
-                        aria-label="Autoriser les cookies de mesure d'audience"
-                      />
+                      <label className="flex shrink-0 items-center justify-center p-3.5 -m-3.5">
+                        <input
+                          type="checkbox"
+                          checked={categories.analytics}
+                          onChange={(e) =>
+                            setCategories((c) => ({ ...c, analytics: e.target.checked }))
+                          }
+                          className="h-5 w-5 accent-bronze"
+                          aria-label="Autoriser les cookies de mesure d'audience"
+                        />
+                      </label>
                     </div>
                     <div className="flex items-center justify-between gap-4">
                       <div>
@@ -94,36 +97,50 @@ export default function CookieConsent() {
                           Permet d&apos;afficher le widget de messagerie.
                         </p>
                       </div>
-                      <input
-                        type="checkbox"
-                        checked={categories.chat}
-                        onChange={(e) =>
-                          setCategories((c) => ({ ...c, chat: e.target.checked }))
-                        }
-                        className="h-5 w-5 accent-bronze"
-                        aria-label="Autoriser les cookies de chat"
-                      />
+                      <label className="flex shrink-0 items-center justify-center p-3.5 -m-3.5">
+                        <input
+                          type="checkbox"
+                          checked={categories.chat}
+                          onChange={(e) =>
+                            setCategories((c) => ({ ...c, chat: e.target.checked }))
+                          }
+                          className="h-5 w-5 accent-bronze"
+                          aria-label="Autoriser les cookies de chat"
+                        />
+                      </label>
                     </div>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
 
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <CtaButton tone="ink" onClick={acceptAll} className="text-[11px] px-4 py-2">
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:mt-5 sm:flex sm:flex-wrap sm:items-center sm:gap-3">
+              <CtaButton
+                tone="ink"
+                onClick={acceptAll}
+                className="min-h-12 text-[11px] px-4 py-2 sm:min-h-0"
+              >
                 Tout accepter
               </CtaButton>
-              <CtaButton tone="ink" onClick={refuseAll} className="text-[11px] px-4 py-2">
+              <CtaButton
+                tone="ink"
+                onClick={refuseAll}
+                className="min-h-12 text-[11px] px-4 py-2 sm:min-h-0"
+              >
                 Tout refuser
               </CtaButton>
               {showDetails ? (
-                <CtaButton tone="ink" onClick={saveCustom} className="text-[11px] px-4 py-2">
+                <CtaButton
+                  tone="ink"
+                  onClick={saveCustom}
+                  className="col-span-2 min-h-12 text-[11px] px-4 py-2 sm:col-span-1 sm:min-h-0"
+                >
                   Enregistrer mes choix
                 </CtaButton>
               ) : (
                 <button
                   onClick={() => setShowDetails(true)}
-                  className="text-sm font-medium underline underline-offset-4 hover:text-bronze transition-colors"
+                  className="col-span-2 flex min-h-12 items-center justify-center text-sm font-medium underline underline-offset-4 hover:text-bronze transition-colors sm:col-span-1 sm:min-h-0 sm:inline sm:justify-start"
                 >
                   Personnaliser
                 </button>

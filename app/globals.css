@@ -8,6 +8,11 @@
   --color-creme: #f3ece1;
   --color-creme-soft: #ece2d2;
   --color-bronze: #8c5a34;
+  /* Variante plus claire réservée au texte bronze de petite taille sur fond
+     encre (ex. label "Chiffres clés") : le bronze standard n'est qu'à
+     3.28:1 sur #12100D, sous le seuil AA (4.5:1) pour du texte normal —
+     celle-ci tient 5:1. Ne pas l'utiliser ailleurs que sur fond encre. */
+  --color-bronze-on-ink: #b37542;
 }
 
 @theme inline {
@@ -16,6 +21,7 @@
   --color-creme: var(--color-creme);
   --color-creme-soft: var(--color-creme-soft);
   --color-bronze: var(--color-bronze);
+  --color-bronze-on-ink: var(--color-bronze-on-ink);
   --font-display: var(--font-fraunces);
   --font-body: var(--font-dm-sans);
 }

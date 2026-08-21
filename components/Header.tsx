@@ -60,7 +60,7 @@ export default function Header() {
           </CtaButton>
 
           <button
-            className="lg:hidden flex flex-col gap-1.5 p-2"
+            className="lg:hidden flex h-12 w-12 flex-col items-center justify-center gap-1.5"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}

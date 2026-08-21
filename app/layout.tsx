@@ -16,6 +16,12 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
 });
 
+// Revalidation ISR : sans ce réglage, Next.js met les pages statiques en
+// cache CDN/proxy pendant 1 an par défaut (s-maxage=31536000), ce qui est
+// trop long pour un site encore en itération active — 1h donne un
+// compromis correct entre fraîcheur et bénéfice du cache.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -27,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Cartwyn — Relance des paniers abandonnés pour e-commerçants",
     description:
-      "Relance automatique des paniers abandonnés, qualification des freins d'achat pour mieux fidéliser vos clients, et reporting mensuel du CA récupéré.",
+      "Relance automatique des paniers abandonnés et qualification des freins d'achat, pour augmenter votre taux de conversion — reporting mensuel du CA récupéré.",
     url: siteUrl,
     siteName: "Cartwyn",
     locale: "fr_FR",

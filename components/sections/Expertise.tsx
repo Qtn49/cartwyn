@@ -60,7 +60,8 @@ export default function Expertise({ tone = "creme" }: ExpertiseProps) {
           Expertise Cartwyn
         </p>
         <h2 className="mt-4 max-w-lg font-display text-3xl font-semibold leading-tight sm:text-4xl">
-          À chaque point de friction, une réponse précise.
+          À chaque point de friction, une réponse précise — pour augmenter
+          votre taux de conversion.
         </h2>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -17,12 +17,12 @@ export default function ChiffresCles({ tone = "ink" }: ChiffresClesProps) {
   return (
     <section className={`${t.bg} ${t.text}`}>
       <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:py-40">
-        <p className="label text-sm font-medium text-bronze">Chiffres clés</p>
+        <p className="label text-sm font-medium text-bronze-on-ink">Chiffres clés</p>
         <h2 className="mt-4 max-w-md font-display text-3xl font-semibold leading-tight sm:text-4xl">
           Ce n&apos;est pas une exception, c&apos;est le marché.
         </h2>
 
-        <ul className="mt-16 grid gap-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <ul className="mt-16 grid gap-14 sm:grid-cols-3 lg:gap-8">
           {stats.map((stat, i) => (
             <StatItem key={stat.label} stat={stat} index={i} />
           ))}

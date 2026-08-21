@@ -28,6 +28,10 @@ const founderJsonLd = {
   description: founderBio,
 };
 
+// address/contactPoint reprennent tels quels les mentions légales
+// (app/mentions-legales/page.tsx) — aucune donnée inventée. Pas de `sameAs` :
+// Cartwyn n'a pas de profil public (LinkedIn/GitHub) à référencer pour
+// l'instant, inventer un lien serait pire que ne rien mettre.
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -35,6 +39,41 @@ const organizationJsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/icon.png`,
   founder: founderJsonLd,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "46 rue du Pré Pigeon",
+    postalCode: "49100",
+    addressLocality: "Angers",
+    addressCountry: "FR",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "contact@cartwyn.fr",
+    telephone: "+33648592488",
+    contactType: "customer service",
+    areaServed: "FR",
+    availableLanguage: "French",
+  },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Cartwyn",
+  url: siteUrl,
+  inLanguage: "fr-FR",
+};
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Relance automatique de paniers abandonnés",
+  provider: { "@type": "Organization", name: "Cartwyn", url: siteUrl },
+  areaServed: "FR",
+  audience: {
+    "@type": "Audience",
+    audienceType: "E-commerçants Shopify et PrestaShop",
+  },
 };
 
 export default function Home() {
@@ -43,6 +82,14 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
       <Header />
       <main>

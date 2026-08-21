@@ -17,13 +17,6 @@ export const stats: Stat[] = [
     source: "Baymard Institute, 2024",
   },
   {
-    value: 80,
-    suffix: "%",
-    label:
-      "des prospects e-commerce ne deviennent jamais clients, faute de suivi structuré",
-    source: "Étude sectorielle e-commerce",
-  },
-  {
     value: 2.82,
     prefix: "",
     suffix: "€",

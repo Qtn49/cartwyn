@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { siteUrl } from "@/lib/site";
+import { siteUrl, breadcrumbJsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
@@ -11,9 +11,15 @@ export const metadata: Metadata = {
   },
 };
 
+const breadcrumb = breadcrumbJsonLd("Mentions légales", "/mentions-legales");
+
 export default function MentionsLegales() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
       <Header />
       <main className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
         <h1 className="font-display text-3xl font-semibold sm:text-4xl">

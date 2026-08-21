@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import FadeIn from "@/components/FadeIn";
 import { pricingTiers } from "@/lib/pricing";
 import { sectionTokens, type SectionTone } from "@/components/section-variant";
@@ -53,7 +52,6 @@ type FAQProps = {
 
 export default function FAQ({ tone = "creme" }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const shouldReduceMotion = useReducedMotion();
   const t = sectionTokens[tone];
 
   return (
@@ -88,21 +86,22 @@ export default function FAQ({ tone = "creme" }: FAQProps) {
                     +
                   </span>
                 </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={shouldReduceMotion ? false : { height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                      className="overflow-hidden"
-                    >
-                      <p className={`px-6 pb-5 text-sm leading-relaxed ${t.textSoft}`}>
-                        {faq.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Toujours présent dans le HTML servi (repli visuel en CSS,
+                    jamais un démontage JSX) : un crawler qui n'exécute pas
+                    de JS doit voir les 7 réponses, pas seulement celle
+                    ouverte par défaut. */}
+                <div
+                  aria-hidden={!isOpen}
+                  className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${
+                    isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className={`px-6 pb-5 text-sm leading-relaxed ${t.textSoft}`}>
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
               </div>
             );
           })}

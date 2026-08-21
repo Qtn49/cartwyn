@@ -26,6 +26,7 @@ export default function ChatBubble() {
   const [hasStarted, setHasStarted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -33,6 +34,19 @@ export default function ChatBubble() {
       behavior: shouldReduceMotion ? "auto" : "smooth",
     });
   }, [messages.length, loading, shouldReduceMotion]);
+
+  // Le bouton flottant est en position fixe : au tout premier écran sur
+  // mobile, il peut chevaucher la fin du sous-titre du hero. On ne le
+  // masque qu'en dessous du breakpoint sm (via max-sm:), donc le desktop
+  // n'est jamais concerné.
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 120);
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   async function handleSend() {
     const text = input.trim();
@@ -175,7 +189,11 @@ export default function ChatBubble() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Une question ?"
-        className="label flex items-center gap-2 rounded-full border border-creme/25 bg-ink px-5 py-3 text-xs font-medium text-creme shadow-lg shadow-black/30 transition-colors hover:border-bronze"
+        className={`label flex min-h-12 items-center gap-2 rounded-full border border-creme/25 bg-ink px-5 py-3 text-xs font-medium text-creme shadow-lg shadow-black/30 transition-[opacity,transform,border-color] duration-300 hover:border-bronze motion-reduce:transition-[border-color] ${
+          open || scrolled
+            ? "opacity-100"
+            : "max-sm:pointer-events-none max-sm:translate-y-3 max-sm:opacity-0"
+        }`}
       >
         <svg
           width="16"

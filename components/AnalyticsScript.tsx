@@ -21,6 +21,10 @@ const PLAUSIBLE_HOST =
   process.env.NEXT_PUBLIC_PLAUSIBLE_HOST || "https://plausible.io";
 const PLAUSIBLE_SCRIPT_ID = process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_ID;
 
+// Le texte de ce script inline est figé (aucune donnée dynamique) : sa
+// Content-Security-Policy est autorisée par hash SHA-256 dans
+// next.config.ts, pas par nonce — toute modification de ce texte doit
+// être répercutée dans le hash CSP, sinon le script sera bloqué.
 export default function AnalyticsScript() {
   const consent = useConsent();
 
