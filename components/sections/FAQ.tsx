@@ -71,21 +71,27 @@ export default function FAQ({ tone = "creme" }: FAQProps) {
             const isOpen = openIndex === i;
             return (
               <div key={faq.question}>
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-                >
-                  <span className="font-medium">{faq.question}</span>
-                  <span
-                    className={`shrink-0 text-xl text-bronze transition-transform ${
-                      isOpen ? "rotate-45" : ""
-                    }`}
-                    aria-hidden="true"
+                {/* h3 englobe le bouton plutôt qu'un heading imbriqué dans le
+                    bouton (contraire au content model de <button>) — pattern
+                    accordéon standard WAI-ARIA, cohérent avec le niveau h3
+                    déjà utilisé pour les sous-items ailleurs sur la page. */}
+                <h3>
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                   >
-                    +
-                  </span>
-                </button>
+                    <span className="font-medium">{faq.question}</span>
+                    <span
+                      className={`shrink-0 text-xl text-bronze transition-transform ${
+                        isOpen ? "rotate-45" : ""
+                      }`}
+                      aria-hidden="true"
+                    >
+                      +
+                    </span>
+                  </button>
+                </h3>
                 {/* Toujours présent dans le HTML servi (repli visuel en CSS,
                     jamais un démontage JSX) : un crawler qui n'exécute pas
                     de JS doit voir les 7 réponses, pas seulement celle

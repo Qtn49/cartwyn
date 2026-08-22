@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/sections/Hero";
 import { siteUrl } from "@/lib/site";
 import { founderName, founderBio } from "@/lib/founder";
+import { pricingTiers } from "@/lib/pricing";
 
 // Code-splitting des sections sous la ligne de flottaison : chaque import()
 // devient son propre chunk JS, chargé après le bundle initial. `ssr` reste
@@ -41,9 +42,14 @@ const founderJsonLd = {
 // (app/mentions-legales/page.tsx) — aucune donnée inventée. Pas de `sameAs` :
 // Cartwyn n'a pas de profil public (LinkedIn/GitHub) à référencer pour
 // l'instant, inventer un lien serait pire que ne rien mettre.
+// @id stable pour que Service.provider référence cette même entité au lieu
+// de répéter une Organization séparée (déduplication du graphe de données).
+const organizationId = `${siteUrl}/#organization`;
+
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": organizationId,
   name: "Cartwyn",
   url: siteUrl,
   logo: `${siteUrl}/icon.png`,
@@ -73,16 +79,26 @@ const websiteJsonLd = {
   inLanguage: "fr-FR",
 };
 
+// offers reprend tels quels les 3 paliers réels de lib/pricing.ts — aucun
+// prix inventé, source unique de vérité inchangée.
 const serviceJsonLd = {
   "@context": "https://schema.org",
   "@type": "Service",
   serviceType: "Relance automatique de paniers abandonnés",
-  provider: { "@type": "Organization", name: "Cartwyn", url: siteUrl },
+  provider: { "@id": organizationId },
   areaServed: "FR",
   audience: {
     "@type": "Audience",
     audienceType: "E-commerçants Shopify et PrestaShop",
   },
+  offers: pricingTiers.map((tier) => ({
+    "@type": "Offer",
+    name: `Palier ${tier.name}`,
+    description: tier.ordersRange,
+    price: tier.price,
+    priceCurrency: "EUR",
+    url: `${siteUrl}/#tarifs`,
+  })),
 };
 
 export default function Home() {

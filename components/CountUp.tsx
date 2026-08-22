@@ -19,7 +19,11 @@ export default function CountUp({
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
   const shouldReduceMotion = useReducedMotion();
-  const [display, setDisplay] = useState(0);
+  // Initialisé à la vraie valeur (pas 0) : le HTML servi par le serveur doit
+  // toujours contenir la valeur réelle, jamais un placeholder — voir
+  // CLAUDE.md, règle transversale sur le contenu animé. L'effet de comptage
+  // ci-dessous reste un enrichissement purement visuel côté client.
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
     if (!inView || shouldReduceMotion) return;
